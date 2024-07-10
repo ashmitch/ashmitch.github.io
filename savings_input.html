@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<title>Home Loan Deposit Calculator</title>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f0f0f0;
+        color: #006400;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%; /* Take full width */
+        max-width: 1800px; /* Limit maximum width */
+        margin-top: 20px;
+    }
+
+    .form-container {
+        flex-grow: 1; /* Take up remaining space */
+        padding: 20px;
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        margin-right: 20px;
+        color: #006400;
+    }
+    select#state,
+    select#deposit_percentage {
+        width: 30%;
+        padding: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    input#current_savings {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    .result-container,
+    .accordion-container {
+        flex-basis: 50%;
+        margin-top: 20px;
+        max-width: 1200px;
+    }
+    .result-container {
+        flex-grow: 1; /* Take up remaining space */
+        margin-top: 20px;
+        max-width: 1200px; /* Adjust maximum width as needed */
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
+    }
+    .result {
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
+    }
+    .accordion-container {
+        max-width: 1200px;
+    }
+    .accordion {
+        background-color: #f0f0f0;
+        color: #006400;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: 1px solid #ddd;
+        outline: none;
+        transition: background-color 0.3s ease;
+    }
+    .accordion.active,
+    .accordion:hover {
+        background-color: #C7F5C7;
+    }
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+    .panel.show {
+        display: block;
+    }
+    form {
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #808080;
+    }
+    .tiles {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .tile {
+        flex: 0.6;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #fff;
+        transition: background-color 1s ease;
+    }
+    .tile.selected {
+        background-color: #C7F5C7;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #006400;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #C7F5C7;
+        color: #006400;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    .result p {
+        margin: 10px 0;
+        color: #808080;
+    }
+    .result.bold {
+        font-weight: bold;
+        font-size: 24px;
+        color: #006400;
+    }
+</style>
+</head>
+<body>
+    <h1>Home Loan Deposit Calculator</h1>
+    <div class="container">
+        <div class="form-container">
+            <form id="inputForm">
+                <label for="house_type">What type of home are you looking to buy?</label>
+                <div class="tiles">
+                    <div class="tile" id="established" onclick="toggleTile(this,'house_type','established')">Established Home</div>
+                    <div class="tile" id="build" onclick="toggleTile(this,'house_type','build')">Build a New Home</div>
+                    <div class="tile" id="land" onclick="toggleTile(this,'house_type','land')">Vacant Land</div>
+                    <input type="hidden" id="house_type" name="house_type" value="established">
+                </div>
+                <br>
+                <label for="state">What State are you purchasing in?:</label>
+                <select id="state" name="state">
+                    <option value="NSW">NSW</option>
+                    <option value="VIC">VIC</option>
+                    <option value="QLD">QLD</option>
+                    <option value="WA">WA</option>
+                    <option value="SA">SA</option>
+                    <option value="TAS">TAS</option>
+                    <option value="ACT">ACT</option>
+                    <option value="NT">NT</option>
+                </select>
+                <br>
+                <label>Are you buying in a Regional or Metro area?</label>
+                <div class="tiles">
+                    <div class="tile" id="regional" onclick="toggleTile(this,'regional','Yes')">Regional</div>
+                    <div class="tile" id="metro" onclick="toggleTile(this,'regional','No')">Metro</div>
+                    <input type="hidden" id="regional" name="regional" value="Y">
+                </div>
+                <br>
+                <label for="current_savings">How much do you have saved? ($):</label>
+                <input type="text" id="current_savings" name="current_savings" oninput="formatPrice(this)" required>
+                <br>
+                <label for="first_home_buyer">Are you a First Home Buyer?</label>
+                <div class="tiles">
+                    <div class="tile" id="first_home_buyer_yes" onclick="toggleTile(this,'first_home_buyer','first_home_buyer_yes')">Yes</div>
+                    <div class="tile" id="first_home_buyer_no" onclick="toggleTile(this,'first_home_buyer','first_home_buyer_no')">No</div>
+                    <input type="hidden" id="first_home_buyer" name="first_home_buyer" value="first_home_buyer_no">
+                </div>
+                <br>
+                <label for="first_home_guarantee">Are you eligible for the First Home Buyer Guarantee?</label>
+                <div class="tiles">
+                    <div class="tile" id="first_home_guarantee_yes" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_yes')">Yes</div>
+                    <div class="tile" id="first_home_guarantee_no" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_no')">No</div>
+                    <input type="hidden" id="first_home_guarantee" name="first_home_guarantee" value="first_home_guarantee_no">
+                </div>
+                <br>
+                <label for="guarantor">Do you have a guarantor?</label>
+                <div class="tiles">
+                    <div class="tile" id="guarantor_yes" onclick="toggleTile(this,'guarantor','guarantor_yes')">Yes</div>
+                    <div class="tile" id="guarantor_no" onclick="toggleTile(this,'guarantor','guarantor_no')">No</div>
+                    <input type="hidden" id="guarantor" name="guarantor" value="guarantor_no">
+                </div>
+                <br>
+                <label>Select % Deposit:</label>
+                <select id="deposit_percentage" name="deposit_percentage">
+                    <option value="0.2">20%</option>
+                    <option value="0.15">15%</option>
+                    <option value="0.1">10%</option>
+                    <option value="0.05">5%</option>
+                </select>
+                <div class="button-container">
+                    <button type="button" onclick="display(findMaxHousePrice().house_price)">Calculate Deposit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="result-container">
+            <div class="result">
+                <p style="font-weight: bold;" id="maxHousePrice">Maximum Property Value Price: </p>
+                <p style="font-weight: bold;" id="amountRequired">Savings Required: </p>
+                <p id="FHOG">First Home Owner Grant: </p>
+            </div>
+            <div class="result">
+                <p style="font-weight: bold;" id="total_fees">Total Fees: </p>
+                <p id="stampDutyResult">Stamp Duty: </p>
+                <p id="stampDutyConc">Stamp Duty Concessions: </p>
+                <p id="otherGovtCostsResult">Other Govt Costs: </p>
+                <p id="Conveyancing">Conveyancing Fees: </p>
+                <p id="LMI">LMI (Lenders Mortgage Insurance): </p>
+            </div>
+            <div class="result">
+                <p style="font-weight: bold;" id="loanValue">Loan Value: </p>
+            </div>
+            <div class="accordion-container">
+                <button class="accordion">Want to see some options to reduce your deposit required?</button>
+                <div class="panel">
+                    <p id="accordionOption1"></p>
+                    <p id="accordionOption2"></p>
+                    <p id="accordionOption3"></p>
+                    <p id="accordionOption4"></p>
+                    <p id="accordionOption5"></p>
+                    <p id="accordionOption6"></p>
+                    <p id="accordionOption7"></p>
+                </div>
+                <button class="accordion">Eligibility Criteria Assumptions</button>
+                <div class="panel">
+                    <p id="accordionCriteria1"></p>
+                    <p id="accordionCriteria2"></p>
+                    <p id="accordionCriteria3"></p>
+                    <p id="accordionCriteria4"></p>
+                    <p id="accordionCriteria5"></p>
+                    <p id="accordionCriteria6"></p>
+                    <p id="accordionCriteria7"></p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        function toggleTile(tile,variable,value) {
+            var tiles = tile.parentElement.querySelectorAll('.tile');
+            tiles.forEach(function(item) {
+                item.classList.remove('selected');
+            });
+            tile.classList.add('selected');
+            document.getElementById(variable).value = value;
+        }
+
+        function populateAccordions(outputs) {
+            // Populate Criteria list
+            var criteria_counter = 0;
+            var criteria1 = "";
+            var criteria2 = "";
+            var criteria3 = "";
+            var criteria4 = "";
+            if(outputs.guarantor=="guarantor_yes"){
+
+            }
+
+            if(outputs.first_home_guarantee=="first_home_guarantee_yes"){
+                
+            }
+
+            if(outputs.FHOG>0){
+
+            }
+
+            if(outputs.stamp_duty_concession > 0){
+
+            }
+
+            document.getElementById('accordionCriteria1').textContent = criteria1;
+            document.getElementById('accordionCriteria2').textContent = criteria2;
+            document.getElementById('accordionCriteria3').textContent = criteria3;
+            document.getElementById('accordionCriteria4').textContent = criteria4;
+
+            // Populate Options to reduce savings required 
+            var option_counter = 0;
+            var option1 = "";
+            var option2 = "";
+            var option3 = "";
+            var option4 = "";
+            var option5 = "";
+            var option6 = "";
+            var option7 = "";
+
+            if(outputs.LMI > 0){
+                option_counter++;
+                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This allows you to pay $0 in LMI.";
+                option_counter++;
+                option2 = "Option " + option_counter + " - Could your parents or family members be a guarantor for your loan? Not everyone has this option, but it can also reduce your LMI to $0.";
+            }
+            if(outputs.house_type == "established" && outputs.first_home_buyer == "first_home_buyer_yes"){
+                option_counter++;
+                option3 = "Option " + option_counter + " - Have you thought about buying a newly built property? Most state governments have grants & concessions available for First Home Buyers buying new homes.";
+
+            }
+            if(outputs.deposit_percentage > 0.05){
+                option_counter++;
+                option4 = "Option " + option_counter + " - You could try reducing your % Deposit, this gives you a higher loan value and can sometimes result in higher interest rates. However, it can make it easier to get into the property market.";
+            }
+            
+            if(outputs.house_type != "established" && outputs.first_home_buyer == "first_home_buyer_yes" && outputs.FHOG == 0){
+                option_counter++;
+                option5 = "Option " + option_counter + " - You seem to be above the FHOG Threshold for your state. If you reduce your House Price Budget you'll be able to access the First Home Owner Grant.";
+            }
+
+            if(outputs.first_home_buyer == "first_home_buyer_yes" && outputs.stamp_duty_concession == 0){
+                option_counter++;
+                option6 = "Option " + option_counter + " - You seem to be above the Stamp Duty Concession Threshold for your state. If you reduce your House Price you'll start to receive stamp duty concessions and reduce your overall fees.";
+            }
+
+            if(option_counter == 0){
+                option_counter++;
+                option7 = "You seem to be making the most of all the grants & concessions available to you. You might have to reduce your budget or save a bit longer if this isn't making ends meet.";
+            } else {
+                option_counter++;
+                if(option_counter == 1){
+                    option7 = "If the option above isn't feasible for you, you may just need to reduce your property value budget or save for a bit longer.";
+                } else{
+                    option7 = "If the options above aren't feasible for you, you may just need to reduce your property value budget or save for a bit longer.";
+                }
+            }
+
+            document.getElementById('accordionOption1').textContent = option1;
+            document.getElementById('accordionOption2').textContent = option2;
+            document.getElementById('accordionOption3').textContent = option3;
+            document.getElementById('accordionOption4').textContent = option4;
+            document.getElementById('accordionOption5').textContent = option5;
+            document.getElementById('accordionOption6').textContent = option6;
+            document.getElementById('accordionOption7').textContent = option7;
+
+
+        }
+
+        function formatPrice(input) {
+            // Remove non-digit characters
+            var num = input.value.replace(/\D/g, '');
+            // Format with commas
+            input.value = num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function findMaxHousePrice(){
+            var savings = parseFloat(document.getElementById('current_savings').value.replace(/,/g, ''));
+            var initial_test_val = 40*savings;
+            var test_val = initial_test_val;
+            var calc_outputs = calculate(test_val);
+            var amount_req = calc_outputs.amount_req;
+            var iterations = Math.round(test_val/10000)-9;
+        
+
+            for(let i = 0; i< iterations;i++){
+                
+                calc_outputs = calculate(test_val);
+                amount_req = calc_outputs.amount_req;
+                console.log("test value:" + test_val);
+                console.log("amount req:" + amount_req);
+                console.log("savings:" + savings);
+                if(amount_req <= savings){
+                    display(test_val);
+                    return{
+                        house_price: test_val
+                    };
+                }
+                test_val = test_val - 10000;
+                if(test_val < 100000){
+                    alert("Insufficient deposit for any house > $100k. Unfortunately, you're going to need a bigger deposit saved.");
+                    return null;
+                }
+            }
+            
+            
+            
+        }
+
+
+        function calculate(house_price) {
+            var house_type = document.getElementById('house_type').value;
+            var state = document.getElementById('state').value;
+            var regional = document.getElementById('regional').value;
+            var deposit_percentage = parseFloat(document.getElementById('deposit_percentage').value);
+            var first_home_buyer = document.getElementById('first_home_buyer').value;
+            var first_home_guarantee = document.getElementById('first_home_guarantee').value;
+            var guarantor = document.getElementById('guarantor').value;
+
+
+             // Show values in a dialog box
+            // var message = "House Type: " + house_type + "\n" + "State: " + state + "\n" + "Regional: " + regional + "\n" + "House Price: $" + house_price.toLocaleString('en-US') + "\n" +
+            //"Deposit Percentage: " + (deposit_percentage * 100) + "%\n" + "First Home Buyer: " + first_home_buyer + "\n" + "First Home Guarantee: " + first_home_guarantee ;
+             
+            // alert("Input Values:\n\n" + message);
+
+
+            // Constants for fees
+            var FHOG = 0;
+            var stamp_duty_fee = 10000;
+            var other_govt_costs = 6000;
+            var conveyancing_fees = 1000;
+            var LMI = 8000;
+            var stamp_duty_concession =  stamp_duty_fee;
+
+            var LMI_ratio = 0;
+            if(deposit_percentage == 0.05){
+                LMI_ratio = 0.043;
+            }
+            if(deposit_percentage == 0.1){
+                LMI_ratio = 0.025;
+            }
+            if(deposit_percentage == 0.15){
+                LMI_ratio = 0.013;
+            }
+            if(deposit_percentage == 0.2){
+                LMI_ratio = 0;
+            }
+
+            LMI = house_price*(1-deposit_percentage)*LMI_ratio;
+
+            if( first_home_guarantee == "first_home_guarantee_yes"){
+                LMI = 0;
+            }
+
+            if( guarantor == "guarantor_yes"){
+                LMI = 0;
+            }
+
+            if(state == "NSW"){
+                other_govt_costs = 348;
+
+                if(house_price<=364000){
+                    stamp_duty_fee = 1564 + (3.5*(house_price-97000)/100)
+                }
+                if(house_price> 364000 && house_price <= 1212000){
+                    stamp_duty_fee = 10909 + (4.5*(house_price - 364000)/100)
+                }
+                if(house_price > 1212000){
+                    stamp_duty_fee = 49069 + (5.5*(house_price-1212000)/100)
+                }
+                
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type == "build" && house_price <= 600000){
+                        FHOG = 10000;
+                    }
+                    if(house_type == "land" && house_price <= 750000){
+                        FHOG = 10000;
+                    } 
+                    if(house_type == "established"){
+                        FHOG = 0;
+                    }
+                    if(house_price <= 800000){
+                        stamp_duty_concession = stamp_duty_fee
+                    }
+                    if (house_price > 800000 && house_price <= 1000000){
+                        stamp_duty_concession = stamp_duty_fee*(1-((house_price-800000)/200000));
+
+                    }
+                    if(house_price > 1000000){
+                        stamp_duty_concession = 0;
+                    }
+                } 
+                
+            }
+
+            if(state == "VIC"){
+                other_govt_costs = 0.0025*house_price + 154;
+
+                if(house_price <= 130000){
+                    stamp_duty_fee = 350 + 0.024*(house_price-25000);
+                }
+                if(house_price > 130000 && house_price <= 440000){
+                    stamp_duty_fee = 2870 + 0.05*(house_price-130000);
+                }
+                if(house_price > 440000 && house_price <= 550000){
+                    stamp_duty_fee = 18370 + 0.06*(house_price-440000);
+                }
+                if(house_price > 550000 && house_price <= 960000){
+                    stamp_duty_fee = 2870 + 0.06*(house_price-130000);
+                }
+                if(house_price > 960000 && house_price <= 2000000){
+                    stamp_duty_fee = 0.055*house_price;
+                }
+                if(house_price > 2000000){
+                    stamp_duty_fee = 110000 + 0.065*(house_price-2000000);
+                }
+
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type != "established" && house_price <= 750000){
+                        FHOG = 10000;
+                        if(regional == "Yes"){
+                            FHOG = 20000;
+                        }
+                    } else {
+                        FHOG = 0;
+                    } 
+                    if(house_price <= 600000){
+                        stamp_duty_concession = stamp_duty_fee
+                    }
+
+                    if (house_price > 600000 && house_price <= 750000){
+                        stamp_duty_concession = stamp_duty_fee
+                    }
+                    if(house_price > 750000){
+                        stamp_duty_concession = 0;
+                    }
+                }
+                
+            }
+
+            if(state == "SA"){
+                other_govt_costs = 0.0097*house_price;
+                if(house_price<=200000){
+                    stamp_duty_fee = 2830 + 4*(house_price-100000)/100;
+                }
+                if(house_price >200000 && house_price < 250000){
+                    stamp_duty_fee = 6830 + 4.25*(house_price - 200000)/100;
+                }
+                if(house_price >250000 && house_price < 300000){
+                    stamp_duty_fee = 8955 + 4.75*(house_price - 250000)/100;
+                }
+                if(house_price >300000 && house_price < 500000){
+                    stamp_duty_fee = 11330 + 5*(house_price - 300000)/100;
+                }
+                if(house_price >= 500000){
+                    stamp_duty_fee = 21330 + 5.5*(house_price - 500000)/100;
+                }
+                
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type != "established"){
+                        FHOG = 15000;
+                        stamp_duty_concession = stamp_duty_fee;
+                    } else {
+                        FHOG = 0;
+                        stamp_duty_concession = 0;
+                    }
+                }
+                
+            }
+            if(state == "QLD"){
+                other_govt_costs = 151 + 0.0036*house_price;
+
+                var real_stamp_duty = 0;
+                if(house_price <= 350000){
+                    real_stamp_duty = 0.1*(350000/100);
+                }
+                if(house_price>350000 && house_price<=540000){
+                    real_stamp_duty = 3500 + 3.5*((house_price-350000)/100)
+                }
+                if(house_price>540000 && house_price<=1000000){
+                    real_stamp_duty = 10150 + 4.5*((house_price-540000)/100)
+                }
+                if(house_price>1000000){
+                    real_stamp_duty = 30850 + 5.75*((house_price-1000000)/100)
+                }
+
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type != "established"){
+                        FHOG = 30000;
+                    } else {
+                        FHOG = 0;
+                    }
+                    if(house_type != "land"){
+
+                        if(house_price<710000){
+                            stamp_duty_concession = 17350;
+                        }
+                        if(house_price >= 710000 && house_price < 800000){
+                            stamp_duty_concession = 17350- 1735*(math.floor((house_price-710000)/10000)+1);
+                        }
+                        if(house_price > 800000){
+                            stamp_duty_concession = 0;
+                        }
+                    } else {
+                        if(house_price < 360000){
+                            stamp_duty_concession = 10675;
+                        }
+                        if(house_price >=360000 && house_price < 500000){
+                            stamp_duty_concession = 10675- 710*(math.floor((house_price-360000)/10000)+1);
+                        }
+
+                        if(house_price >= 500000){
+                            stamp_duty_concession = 0;
+                        }
+
+
+                    }
+                }
+                stamp_duty_fee = real_stamp_duty + stamp_duty_concession;
+
+            }
+
+            if( state == "WA"){
+                other_govt_costs = 452+0.0001875*house_price;
+                var real_stamp_duty = 0;
+                if(house_price <=120000){
+                    stamp_duty_fee = 1.90*(house_price/100);
+                }
+                if(house_price > 120000 && house_price <=150000){
+                    stamp_duty_fee = 2280 + 2.85*((house_price-120000)/100);
+                }
+                if(house_price > 150000 && house_price <=360000){
+                    stamp_duty_fee = 3135 + 3.8*((house_price-150000)/100);
+                }
+                if(house_price > 360000 && house_price <=725000){
+                    stamp_duty_fee = 11115 + 4.75*((house_price-360000)/100);
+                }
+                if(house_price > 725000){
+                    stamp_duty_fee = 28453 + 5.15*((house_price-725000)/100);
+                }
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type != "established" && house_price <=750000){
+                        FHOG = 10000;
+                    } else {
+                        FHOG = 0;
+                    }
+                    if(house_price < 450000){
+                        stamp_duty_concession = stamp_duty_fee;
+                    }
+                    if(house_price >=450000 && house_price < 600000){
+                        real_stamp_duty = 0.1501*(house_price-450000);
+                        stamp_duty_concession = stamp_duty_fee - real_stamp_duty;
+                    }
+                    if(house_price >=600000){
+                        stamp_duty_concession = 0;
+                    }
+                }
+            }
+
+            if(state == "ACT"){
+                other_govt_costs = 645;
+                if(house_price<=260000){
+                    stamp_duty_fee = 0.4*(house_price/100);
+                }
+                if(house_price > 260000 && house_price <= 300000){
+                    stamp_duty_fee = 1040 + 2.2*(house_price-260000)/100
+                }
+                if(house_price > 300000 && house_price <= 500000){
+                    stamp_duty_fee = 1920 + 3.4*(house_price-300000)/100
+                }
+                if(house_price > 500000 && house_price <= 750000){
+                    stamp_duty_fee = 8720 + 4.32*(house_price-500000)/100
+                }
+                if(house_price > 750000 && house_price <= 1000000){
+                    stamp_duty_fee = 19520 + 5.9*(house_price-750000)/100
+                }
+                if(house_price > 1000000 && house_price <= 1455000){
+                    stamp_duty_fee = 34270 + 6.4*(house_price-1000000)/100
+                }
+                if(house_price > 1455000){
+                    stamp_duty_fee = 4.54*(house_price-1455000)/100
+                }
+
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_price < 1000000){
+                        stamp_duty_concession = stamp_duty_fee;
+                    }
+                    if(house_price>=1000000){
+                        stamp_duty_concession = 34270;
+                    }
+
+                }
+
+                
+                FHOG = 0;
+            }
+
+            if(state == "NT"){
+                other_govt_costs = 369;
+                if(house_price < 525000){
+                    stamp_duty_fee = 0.06571441*(house_price/1000)*(house_price/1000)+15*(house_price/1000);
+                }
+                if(house_price >= 525000 && house_price < 3000000){
+                    stamp_duty_fee = 0.0495*house_price;
+                }
+                if(house_price >= 3000000 && house_price < 5000000){
+                    stamp_duty_fee = 0.0575*house_price;
+                }
+                if(house_price >=  5000000){
+                    stamp_duty_fee = 0.0595*house_price;
+                }
+
+
+                if(first_home_buyer == "first_home_buyer_yes" && house_type != "established"){
+                    FHOG = 10000;
+                    if(house_type=="land"){
+                        stamp_duty_concession = stamp_duty_fee;
+                    }
+                }
+                
+            }
+
+            if(state == "TAS"){
+                other_govt_costs = 422;
+                if(house_price<=200000){
+                    stamp_duty_fee = 1560 + 3.5*(house_price-75000)/100
+                }
+                if(house_price > 200000 && house_price <= 375000){
+                    stamp_duty_fee = 5935 + 4*(house_price-200000)/100
+                }
+                if(house_price > 375000 && house_price <= 725000){
+                    stamp_duty_fee = 12935 + 4.25*(house_price-375000)/100
+                }
+                if(house_price > 725000 ){
+                    stamp_duty_fee = 27810 + 4.5*(house_price-725000)/100
+                }
+                if(first_home_buyer == "first_home_buyer_yes"){
+                    if(house_type != "established"){
+                        FHOG = 10000;
+                    }
+                    if(house_price<750000){
+                        stamp_duty_concession = stamp_duty_fee;
+                    }
+                }   
+
+            }
+            stamp_duty_concession = (-1)*stamp_duty_concession;
+
+
+            // Calculate total fees
+            var total_fees = stamp_duty_fee + other_govt_costs + conveyancing_fees + LMI + stamp_duty_concession;
+
+            // Calculate true deposit and actual deposit
+            var true_deposit = house_price * deposit_percentage;
+            var loan_figure = house_price - true_deposit;
+            var amount_req = true_deposit + total_fees - (first_home_buyer ? FHOG : 0);
+            var loan_value = house_price - true_deposit;
+
+            var total_deposit_available = amount_req + FHOG;
+            
+            return { 
+                true_deposit: true_deposit,
+                loan_value: loan_value,
+                deposit_percentage: deposit_percentage,
+                FHOG: FHOG,
+                total_fees: total_fees,
+                stamp_duty_fee: stamp_duty_fee,
+                stamp_duty_concession: stamp_duty_concession,
+                other_govt_costs: other_govt_costs,
+                amount_req: amount_req,
+                conveyancing_fees: conveyancing_fees,
+                LMI: LMI,
+                first_home_buyer:first_home_buyer,
+                first_home_guarantee:first_home_guarantee,
+                guarantor:guarantor,
+                house_type:house_type,
+                deposit_percentage:deposit_percentage,
+                total_deposit_available: total_deposit_available
+            };
+
+            
+        }
+        
+        function display(maxHousePrice){
+            var outputs = calculate(maxHousePrice);
+            
+
+            if(!outputs){
+                return;
+            }
+            // Format amounts with commas for thousands separator
+            var formatted_house_price = maxHousePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_loan_value = outputs.loan_value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_true_deposit = outputs.true_deposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_fhog = outputs.FHOG.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_tot_fees = outputs.total_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_stamp_duty = outputs.stamp_duty_fee.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_stamp_duty_conc = outputs.stamp_duty_concession.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_other_govt_costs = outputs.other_govt_costs.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_amount_req = outputs.amount_req.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_conv_fees = outputs.conveyancing_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_LMI = outputs.LMI.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+
+            // Display the results on the page
+            document.getElementById('maxHousePrice').innerHTML = "<p class='bold'>Maximum Property Value Budget: " + formatted_house_price + "</p>";
+            document.getElementById('amountRequired').innerHTML = "<p class='bold'>Savings Required: " + formatted_amount_req + "</p>";
+            document.getElementById('FHOG').innerHTML = "<p>First Home Owner Grant: " + formatted_fhog + "</p>";
+            document.getElementById('total_fees').innerHTML = "<p class='bold'>Total Fees: " + formatted_tot_fees + "</p>";
+            document.getElementById('stampDutyResult').innerHTML = "<p>Stamp Duty: " + formatted_stamp_duty + "</p>";
+            document.getElementById('stampDutyConc').innerHTML = "<p>Stamp Duty Concessions: " + formatted_stamp_duty_conc + "</p>";
+            document.getElementById('otherGovtCostsResult').innerHTML = "<p>Other Govt Costs: " + formatted_other_govt_costs + "</p>";
+            document.getElementById('Conveyancing').innerHTML = "<p>Conveyancing Fees: " + formatted_conv_fees + "</p>";
+            document.getElementById('LMI').innerHTML = "<p>LMI (Lenders Mortgage Insurance): " + formatted_LMI + "</p>";
+            document.getElementById('loanValue').innerHTML = "<p class='bold'>Loan Value: " + formatted_loan_value + "</p>";
+
+            populateAccordions(outputs);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var accordions = document.getElementsByClassName('accordion');
+
+            for (var i = 0; i < accordions.length; i++) {
+                accordions[i].addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === 'block') {
+                        panel.style.display = 'none';
+                    } else {
+                        panel.style.display = 'block';
+                    }
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>

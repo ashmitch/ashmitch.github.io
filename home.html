@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAHBT - Home</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            color: #006400;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Change to column layout */
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .button-container a {
+            text-decoration: none;
+        }
+
+        .button-container button {
+            padding: 15px 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #006400;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            transition: #C7F5C7 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #C7F5C7 ;
+            color: #006400;
+            border: #006400;
+            border-radius: 20px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .result p {
+            margin: 10px 0;
+            color: #808080;
+        }
+
+        .result.bold {
+            font-weight: bold;
+            font-size: 24px;
+            color: #006400;
+        }
+    </style>
+</head>
+<body>
+    <h1>SAHBT</h1>
+    <h2>Simple Australian Home Buyers Tool</h2>
+    <p>Get started by clicking one of the options below:</p>
+
+    <div class="button-container">
+        <a href="savings_input.html">
+            <button>I have my deposit saved, I want to know my Budget</button>
+        </a>
+
+        <a href="house_budget_input.html">
+            <button>I have a budget in mind, how much deposit will I need to save?</button>
+        </a>
+    </div>
+
+</body>
+</html>
