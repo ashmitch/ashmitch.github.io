@@ -324,9 +324,9 @@
 
             if(outputs.LMI > 0){
                 option_counter++;
-                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This allows you to pay $0 in LMI.";
+                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This would allow you to pay $0 in LMI.";
                 option_counter++;
-                option2 = "Option " + option_counter + " - Could your parents or family members be a guarantor for your loan? Not everyone has this option, but it can also reduce your LMI to $0.";
+                option2 = "Option " + option_counter + " - Could you find a guarantor for your loan? Possibly a parent of family member, as this would allow you to pay $0 in LMI.";
             }
             if(outputs.house_type == "established" && outputs.first_home_buyer == "first_home_buyer_yes"){
                 option_counter++;
@@ -335,7 +335,7 @@
             }
             if(outputs.deposit_percentage > 0.05){
                 option_counter++;
-                option4 = "Option " + option_counter + " - You could try reducing your % Deposit, this gives you a higher loan value and can sometimes result in higher interest rates. However, it can make it easier to get into the property market.";
+                option4 = "Option " + option_counter + " - You could consider reducing your % Deposit, this will reduce the savings you need to get into the market. However, it will result in a bigger loan which can result in the loan exceeding your borrowing power or impact the interest rate you are offered by your lender";
             }
             
             if(outputs.house_type != "established" && outputs.first_home_buyer == "first_home_buyer_yes" && outputs.FHOG == 0){
@@ -347,10 +347,9 @@
                 option_counter++;
                 option6 = "Option " + option_counter + " - You seem to be above the Stamp Duty Concession Threshold for your state. If you reduce your House Price you'll start to receive stamp duty concessions and reduce your overall fees.";
             }
-
             if(option_counter == 0){
                 option_counter++;
-                option7 = "You seem to be making the most of all the grants & concessions available to you. You might have to reduce your budget or save a bit longer if this isn't making ends meet.";
+                option7 = "You seem to be making the most of all the grants & concessions available to you. You may need to reduce your budget or save for a bit longer to reach a property of the price you're looking for.";
             } else {
                 option_counter++;
                 if(option_counter == 1){

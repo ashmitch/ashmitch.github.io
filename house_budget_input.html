@@ -72,6 +72,7 @@
         }
         .accordion-container {
             max-width: 1200px;
+            margin-top: 20px;
         }
         .accordion {
             background-color: #f0f0f0;
@@ -80,7 +81,7 @@
             padding: 18px;
             width: 100%;
             text-align: left;
-            border: 1px solid #ddd;
+            border: 2px solid #c5c5c5;
             outline: none;
             transition: background-color 0.3s ease;
         }
@@ -89,10 +90,11 @@
             background-color: #C7F5C7;
         }
         .panel {
-            padding: 0 18px;
+            padding: 18px;
             display: none;
             background-color: white;
             overflow: hidden;
+            
         }
         .panel.show {
             display: block;
@@ -112,9 +114,10 @@
             display: flex;
             justify-content: space-between;
             margin-top: 10px;
+            border-top: 1px solid #ddd; /* Add a border at the top */
         }
         .tile {
-            flex: 0.6;
+            flex: 0.7;
             text-align: center;
             cursor: pointer;
             padding: 10px;
@@ -122,6 +125,8 @@
             border-radius: 8px;
             background-color: #fff;
             transition: background-color 1s ease;
+            justify-content: center;
+            align-items: center;
         }
         .tile.selected {
             background-color: #C7F5C7;
@@ -170,8 +175,8 @@
                 <label for="house_type">What type of home are you looking to buy?</label>
                 <div class="tiles">
                     <div class="tile" id="established" onclick="toggleTile(this,'house_type','established')"> Established Home</div>
-                    <div class="tile" id="build" onclick="toggleTile(this,'house_type','build')">New Home</div>
-                    <div class="tile" id="land" onclick="toggleTile(this,'house_type','land')">Vacant Land</div>
+                    <div class="tile" id="build" onclick="toggleTile(this,'house_type','build')">Newly Built Home</div>
+                    <div class="tile" id="land" onclick="toggleTile(this,'house_type','land')">Land to Build On</div>
                     <input type="hidden" id="house_type" name="house_type" value="established">
                 </div>
                 <br>
@@ -245,8 +250,8 @@
                 <p id="LMI">LMI (Lenders Mortgage Insurance): </p>
             </div>
             <div class="result">
-                <p style="font-weight: bold;" id="house_price">House Purchase Price: </p>
-                <p style="font-weight: bold;" id="loanValue">Loan Value: </p>
+                <p style="font-weight: bold;" id="finalHousePrice">House Purchase Price: </p>
+                <p id="loanValue">Loan Value: </p>
 
             </div>
             <div class="accordion-container">
@@ -335,9 +340,9 @@
 
             if(outputs.LMI > 0){
                 option_counter++;
-                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This allows you to pay $0 in LMI.";
+                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This would allow you to pay $0 in LMI.";
                 option_counter++;
-                option2 = "Option " + option_counter + " - Could your parents or family members be a guarantor for your loan? Not everyone has this option, but it can also reduce your LMI to $0.";
+                option2 = "Option " + option_counter + " - Could you find a guarantor for your loan? Possibly a parent of family member, as this would allow you to pay $0 in LMI.";
             }
             if(outputs.house_type == "established" && outputs.first_home_buyer == "first_home_buyer_yes"){
                 option_counter++;
@@ -346,7 +351,7 @@
             }
             if(outputs.deposit_percentage > 0.05){
                 option_counter++;
-                option4 = "Option " + option_counter + " - You could try reducing your % Deposit, this gives you a higher loan value and can sometimes result in higher interest rates. However, it can make it easier to get into the property market.";
+                option4 = "Option " + option_counter + " - You could consider reducing your % Deposit, this will reduce the savings you need to get into the market. However, it will result in a bigger loan which can result in the loan exceeding your borrowing power or impact the interest rate you are offered by your lender";
             }
             
             if(outputs.house_type != "established" && outputs.first_home_buyer == "first_home_buyer_yes" && outputs.FHOG == 0){
@@ -361,7 +366,7 @@
 
             if(option_counter == 0){
                 option_counter++;
-                option7 = "You seem to be making the most of all the grants & concessions available to you. You might have to reduce your budget or save a bit longer if this isn't making ends meet.";
+                option7 = "You seem to be making the most of all the grants & concessions available to you. You may need to reduce your budget or save for a bit longer to reach a property of the price you're looking for.";
             } else {
                 option_counter++;
                 if(option_counter == 1){
@@ -763,7 +768,8 @@
                 guarantor:guarantor,
                 house_type:house_type,
                 deposit_percentage:deposit_percentage,
-                total_deposit_available: total_deposit_available
+                total_deposit_available: total_deposit_available,
+                house_price: house_price
             };
 
             
@@ -777,17 +783,18 @@
             }
             // Format amounts with commas for thousands separator
             
-            var formatted_true_deposit = outputs.true_deposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_loan_value = outputs.loan_value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_fhog = outputs.FHOG.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_tot_fees = outputs.total_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_stamp_duty = outputs.stamp_duty_fee.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_stamp_duty_conc = outputs.stamp_duty_concession.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_other_govt_costs = outputs.other_govt_costs.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_amount_req = outputs.amount_req.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_conv_fees = outputs.conveyancing_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_LMI = outputs.LMI.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            var formatted_total_deposit_available = outputs.total_deposit_available.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            var formatted_true_deposit = outputs.true_deposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            var formatted_house_price = outputs.house_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_loan_value = outputs.loan_value.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_fhog = outputs.FHOG.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_tot_fees = outputs.total_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            var formatted_stamp_duty = outputs.stamp_duty_fee.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            var formatted_stamp_duty_conc = outputs.stamp_duty_concession.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_other_govt_costs = outputs.other_govt_costs.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_amount_req = outputs.amount_req.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            var formatted_conv_fees = outputs.conveyancing_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_LMI = outputs.LMI.toLocaleString('en-US', { style: 'currency', currency: 'USD' , minimumFractionDigits: 0, maximumFractionDigits: 0});
+            var formatted_total_deposit_available = outputs.total_deposit_available.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 
             // Display the results on the page
@@ -801,6 +808,7 @@
             document.getElementById('Conveyancing').innerHTML = "<p>Conveyancing Fees: " + formatted_conv_fees + "</p>";
             document.getElementById('LMI').innerHTML = "<p>LMI (Lenders Mortgage Insurance): " + formatted_LMI + "</p>";
             document.getElementById('loanValue').innerHTML = "<p class='bold'>Loan Value: " + formatted_loan_value + "</p>";
+            document.getElementById('finalHousePrice').innerHTML = "<p class='bold'>House Purchase Price: " + formatted_house_price + "</p>";
             
 
             populateAccordions(outputs); // Populate accordion content
