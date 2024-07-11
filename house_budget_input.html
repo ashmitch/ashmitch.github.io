@@ -90,11 +90,11 @@
             background-color: #C7F5C7;
         }
         .panel {
-            padding: 18px;
+            padding: 0 18px;
             display: none;
             background-color: white;
             overflow: hidden;
-            
+            text-align: left;
         }
         .panel.show {
             display: block;
@@ -165,6 +165,52 @@
             font-size: 24px;
             color: #006400;
         }
+        .info-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 14px;
+            background-color: #ffffff; /* Background color */
+            color: #006400; /* Text color */
+            border-radius: 50%; /* Rounded shape */
+            cursor: pointer; /* Show pointer cursor on hover */
+            margin-left: 5px; /* Adjust spacing */
+        }
+
+        .info-icon:hover {
+            background-color: #c7f5c7; /* Hover background color */
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #ffffff;
+            color: #006400;
+            border: 1px solid #808080;
+            border-radius: 4px;
+            padding: 8px;
+            z-index: 1;
+            display: none;
+            max-width: 400px;
+
+        }
+
+        .tooltip::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #808080 transparent;
+        }
+
+        .tooltip.active {
+            display: block;
+        }
+
+
     </style>
 </head>
 <body>
@@ -172,7 +218,16 @@
     <div class="container">
         <div class="form-container">
             <form id="inputForm">
-                <label for="house_type">What type of home are you looking to buy?</label>
+                <label for="house_type">
+                    What type of home are you looking to buy? 
+                    <span class="info-icon" onclick="showInfo('info-house-type')">?</span>
+                    <div id="info-house-type-tooltip" class="tooltip">
+                        Choose the house type which corresponds to what you are looking to buy: <br> <br>
+                        <strong>Established Home</strong> - a house which is already built & has been lived in before by someone else.<br><br>
+                        <strong>Newly Built Home</strong> - a house which has just been built & has never been lived in before (e.g an Apartment or Townhouse from a new development or House & Land Package)<br><br>
+                        <strong>Land to Build On</strong> - land which you are buying with intentions to build a house on.<br><br>
+                    </div>
+                </label>
                 <div class="tiles">
                     <div class="tile" id="established" onclick="toggleTile(this,'house_type','established')"> Established Home</div>
                     <div class="tile" id="build" onclick="toggleTile(this,'house_type','build')">Newly Built Home</div>
@@ -291,6 +346,7 @@
             });
             tile.classList.add('selected');
             document.getElementById(variable).value = value;
+            updateDepositOptions(); 
         }
 
         function formatPrice(input) {
@@ -340,28 +396,28 @@
 
             if(outputs.LMI > 0){
                 option_counter++;
-                option1 = "Option " + option_counter + " - Are you eligible for the First Home Buyer Guarantee? This would allow you to pay $0 in LMI.";
+                option1 = `<strong>Option ${option_counter} - First Home Buyer Guarantee </strong> <br>Are you eligible for the First Home Buyer Guarantee? This would allow you to pay $0 in LMI.`;
                 option_counter++;
-                option2 = "Option " + option_counter + " - Could you find a guarantor for your loan? Possibly a parent of family member, as this would allow you to pay $0 in LMI.";
+                option2 = `<strong>Option ${option_counter} - Guarantor </strong> <br> Could you find a guarantor for your loan? Possibly a parent of family member, as this would allow you to pay $0 in LMI.`;
             }
             if(outputs.house_type == "established" && outputs.first_home_buyer == "first_home_buyer_yes"){
                 option_counter++;
-                option3 = "Option " + option_counter + " - Have you thought about buying a newly built property? Most state governments have grants & concessions available for First Home Buyers buying new homes.";
+                option3 = `<strong>Option ${option_counter} - Opt for a Newly Built Home </strong> <br> Have you thought about buying a newly built property? Most state governments have grants & concessions available for First Home Buyers buying new homes.`;
 
             }
             if(outputs.deposit_percentage > 0.05){
                 option_counter++;
-                option4 = "Option " + option_counter + " - You could consider reducing your % Deposit, this will reduce the savings you need to get into the market. However, it will result in a bigger loan which can result in the loan exceeding your borrowing power or impact the interest rate you are offered by your lender";
+                option4 = `<strong>Option ${option_counter} - Reduce your deposit </strong> <br> You could consider reducing your % Deposit, this will reduce the savings you need to get into the market. However, it will result in a bigger loan which can result in the loan exceeding your borrowing power or impact the interest rate you are offered by your lender`;
             }
             
             if(outputs.house_type != "established" && outputs.first_home_buyer == "first_home_buyer_yes" && outputs.FHOG == 0){
                 option_counter++;
-                option5 = "Option " + option_counter + " - You seem to be above the FHOG Threshold for your state. If you reduce your House Price Budget you'll be able to access the First Home Owner Grant.";
+                option5 = `<strong>Option ${option_counter} - Buy a property below the FHOG Price Threshold </strong> <br> You seem to be above the FHOG Threshold for your state. If you reduce your House Price Budget you'll be able to access the First Home Owner Grant.`;
             }
 
             if(outputs.first_home_buyer == "first_home_buyer_yes" && outputs.stamp_duty_concession == 0){
                 option_counter++;
-                option6 = "Option " + option_counter + " - You seem to be above the Stamp Duty Concession Threshold for your state. If you reduce your House Price you'll start to receive stamp duty concessions and reduce your overall fees.";
+                option6 = `<strong>Option ${option_counter} - Buy a property below the Stamp Duty Concession Price Threshold </strong> <br> You seem to be above the Stamp Duty Concession Threshold for your state. If you reduce your House Price you'll start to receive stamp duty concessions and reduce your overall fees.`;
             }
 
             if(option_counter == 0){
@@ -370,9 +426,9 @@
             } else {
                 option_counter++;
                 if(option_counter == 1){
-                    option7 = "If the option above isn't feasible for you, you may just need to reduce your property value budget or save for a bit longer.";
+                    option7 = `<br> If the option above isn't feasible for you, you may just need to reduce your property value budget or save for a bit longer.`;
                 } else{
-                    option7 = "If the options above aren't feasible for you, you may just need to reduce your property value budget or save for a bit longer.";
+                    option7 = `<br> If the options above aren't feasible for you, you may just need to reduce your property value budget or save for a bit longer.`;
                 }
             }
 
@@ -380,18 +436,74 @@
             
 
 
-            document.getElementById('accordionOption1').textContent = option1;
-            document.getElementById('accordionOption2').textContent = option2;
-            document.getElementById('accordionOption3').textContent = option3;
-            document.getElementById('accordionOption4').textContent = option4;
-            document.getElementById('accordionOption5').textContent = option5;
-            document.getElementById('accordionOption6').textContent = option6;
-            document.getElementById('accordionOption7').textContent = option7;
+            document.getElementById('accordionOption1').innerHTML = option1;
+            document.getElementById('accordionOption2').innerHTML = option2;
+            document.getElementById('accordionOption3').innerHTML = option3;
+            document.getElementById('accordionOption4').innerHTML = option4;
+            document.getElementById('accordionOption5').innerHTML = option5;
+            document.getElementById('accordionOption6').innerHTML = option6;
+            document.getElementById('accordionOption7').innerHTML = option7;
 
             var criteria = "Eligibility Criteria Assumptions:\n\n";
            
         }
 
+        function updateDepositOptions() {
+            var depositSelect = document.getElementById("deposit_percentage");
+            var selectedValue = depositSelect.value;
+            var firstHomeGuarantee = document.getElementById("first_home_guarantee").value;
+            var guarantor = document.getElementById("guarantor").value;
+
+            // Default options
+            var defaultOptions = [
+                { value: "0.2", text: "20%" },
+                { value: "0.15", text: "15%" },
+                { value: "0.1", text: "10%" }
+            ];
+
+            // Options when first home buyer guarantee is yes
+            var fhgOptions = [
+                
+                { value: "0.2", text: "20%" },
+                { value: "0.15", text: "15%" },
+                { value: "0.1", text: "10%" },
+                { value: "0.05", text: "5%" }
+            ];
+
+            // Options when guarantor is yes
+            var guarantorOptions = [
+                
+                { value: "0.2", text: "20%" },
+                { value: "0.15", text: "15%" },
+                { value: "0.1", text: "10%" },
+                { value: "0.05", text: "5%" }
+            ];
+
+            // Clear existing options
+            depositSelect.innerHTML = "";
+
+            // Determine which options to use based on selections
+            var optionsToUse = defaultOptions;
+            if (firstHomeGuarantee === "first_home_guarantee_yes") {
+                optionsToUse = fhgOptions;
+            } else if (guarantor === "guarantor_yes") {
+                optionsToUse = guarantorOptions;
+            }
+
+            // Populate select with options
+            optionsToUse.forEach(function(option) {
+                var optionElem = document.createElement("option");
+                optionElem.value = option.value;
+                optionElem.textContent = option.text;
+                depositSelect.appendChild(optionElem);
+            });
+            if (selectedValue && optionsToUse.find(option => option.value === selectedValue)) {
+                depositSelect.value = selectedValue;
+            } else {
+                // If the previously selected value is not in the new options, select the first option by default
+                depositSelect.value = optionsToUse[0].value;
+            }
+        }
 
         function calculate() {
             var house_type = document.getElementById('house_type').value;
@@ -774,6 +886,24 @@
 
             
         }
+
+        function showInfo(infoId) {
+            var tooltip = document.getElementById(infoId + '-tooltip');
+            
+
+            var icon = document.querySelector('#' + infoId + ' + .info-icon');
+            tooltip.classList.toggle('active');
+
+            if (tooltip.classList.contains('active')) {
+                var iconRect = icon.getBoundingClientRect();
+                // Calculate position to the right of the info icon
+                tooltip.style.top = (iconRect.top - tooltip.offsetHeight / 2 + icon.offsetHeight / 2) + 'px';
+                tooltip.style.left = (iconRect.left + icon.offsetWidth + 10) + 'px'; // Adjust spacing as needed
+            } else {
+                tooltip.style.display = 'none';
+            }
+        }
+
         
         function display(){
             var outputs = calculate();
@@ -815,7 +945,6 @@
         }
         document.addEventListener('DOMContentLoaded', function () {
             var accordions = document.getElementsByClassName('accordion');
-
             for (var i = 0; i < accordions.length; i++) {
                 accordions[i].addEventListener('click', function () {
                     this.classList.toggle('active');
