@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS6P9SVTRP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YS6P9SVTRP');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>Home Loan Deposit Calculator</title>
+    <title>Habitat - Home Loan Deposit Calculator</title>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -179,9 +188,6 @@
             margin-left: 5px; /* Adjust spacing */
         }
 
-        .info-icon:hover {
-            background-color: #c7f5c7; /* Hover background color */
-        }
         .tooltip {
             position: absolute;
             background-color: #ffffff;
@@ -192,35 +198,48 @@
             z-index: 1;
             display: none;
             max-width: 400px;
-
-        }
-
-        .tooltip::before {
-            content: "";
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent #808080 transparent;
         }
 
         .tooltip.active {
             display: block;
         }
+        .tooltip.right {
+            left: calc(100% + 30px); /* Adjust spacing as needed */
+            top: 0; /* Aligns to the top of the info icon */
+        }
+        .back-button {
+        position: absolute;
+        top: 45px; /* Adjust top position as needed */
+        left: 30px; /* Adjust left position as needed */
+        padding: 10px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #fff;
+        color: #006400;
+        border: #006400;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+        background-color: #C7F5C7;
+        color: #006400;
+    }
 
 
     </style>
 </head>
 <body>
-    <h1>Home Loan Deposit Calculator</h1>
+    <h1>Habitat</h1>
+    <h2>HomeLoans for Australian Buyers and Investors Tips and Toolkit </h2>
     <div class="container">
+        <div class="container">
+            <button class="back-button" onclick="goBack()"> Back to Main Menu</button>
         <div class="form-container">
             <form id="inputForm">
                 <label for="house_type">
                     What type of home are you looking to buy? 
-                    <span class="info-icon" onclick="showInfo('info-house-type')">?</span>
+                    <span class="info-icon" data-tooltip-id="info-house-type-tooltip" onclick="showInfo('info-house-type')">i</span>
                     <div id="info-house-type-tooltip" class="tooltip">
                         Choose the house type which corresponds to what you are looking to buy: <br> <br>
                         <strong>Established Home</strong> - a house which is already built & has been lived in before by someone else.<br><br>
@@ -247,7 +266,9 @@
                     <option value="NT">NT</option>
                 </select>
                 <br>
-                <label>Are you buying in a Regional or Metro area?</label>
+                <label>
+                    Are you buying in a Regional or Metro area?
+                </label>
                 <div class="tiles">
                     <div class="tile" id="regional" onclick="toggleTile(this,'regional','Yes')">Regional</div>
                     <div class="tile" id="metro" onclick="toggleTile(this,'regional','No')">Metro</div>
@@ -257,21 +278,43 @@
                 <label for="house_price">Estimated House Price ($):</label>
                 <input type="text" id="house_price" name="house_price" oninput="formatPrice(this)" required>
                 <div id="priceWarning" class="red" style="display: none;">Please enter a house price of at least $100,000</div>
-                <label for="first_home_buyer">Are you a First Home Buyer?</label>
+
+
+                <label for="first_home_buyer">
+                    Are you a First Home Buyer?
+                    <span class="info-icon" data-tooltip-id="info-first_home_buyer-tooltip" onclick="showInfo('info-first_home_buyer')">i</span>
+                    <div id="info-first_home_buyer-tooltip" class="tooltip">
+                        You are a first home buyer if you have not owned and/or held any interest in a residential property in Australia. <br><br>
+                        If your partner/spouse owns a residential property in Australia, then you will not be able to access the grants & concessions available to First Home Buyers either.
+                    </div>
+                </label>
                 <div class="tiles">
                     <div class="tile" id="first_home_buyer_yes" onclick="toggleTile(this,'first_home_buyer','first_home_buyer_yes')">Yes</div>
                     <div class="tile" id="first_home_buyer_no" onclick="toggleTile(this,'first_home_buyer','first_home_buyer_no')">No</div>
                     <input type="hidden" id="first_home_buyer" name="first_home_buyer" value="first_home_buyer_no">
                 </div>
                 <br>
-                <label for="first_home_guarantee">Are you eligible for the First Home Buyer Guarantee?</label>
+                <label for="first_home_guarantee">
+                    Are you eligible for the First Home Buyer Guarantee?
+                    <span class="info-icon" data-tooltip-id="info-first_home_guarantee-tooltip" onclick="showInfo('info-first_home_guarantee')">i</span>
+                    <div id="info-first_home_guarantee-tooltip" class="tooltip">
+                        The first home buyer guarantee is X, Y, Z
+                    </div>
+                </label>
                 <div class="tiles">
                     <div class="tile" id="first_home_guarantee_yes" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_yes')">Yes</div>
                     <div class="tile" id="first_home_guarantee_no" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_no')">No</div>
                     <input type="hidden" id="first_home_guarantee" name="first_home_guarantee" value="first_home_guarantee_no">
                 </div>
                 <br>
-                <label for="guarantor">Do you have a guarantor?</label>
+                <label for="guarantor">
+                    Do you have a guarantor?
+                    <span class="info-icon" data-tooltip-id="info-guarantor-tooltip" onclick="showInfo('info-guarantor')">i</span>
+                    <div id="info-guarantor-tooltip" class="tooltip">
+                        A guarantor is someone (usually a family member) who will be guaranteeing the payments of the home loan.
+                        This means that if you fail to pay the debt, it then falls to that family member to pay it instead. <br><br>
+                        Most lenders require a guarantor to be an immediate family member & will not accept a friend or other form of relation to be a guarantor.
+                    </div></label>
                 <div class="tiles">
                     <div class="tile" id="guarantor_yes" onclick="toggleTile(this,'guarantor','guarantor_yes')">Yes</div>
                     <div class="tile" id="guarantor_no" onclick="toggleTile(this,'guarantor','guarantor_no')">No</div>
@@ -339,6 +382,10 @@
     
 
     <script>
+        function goBack() {
+            // Example: Navigate back in history
+            window.history.back();
+        }
         function toggleTile(tile,variable,value) {
             var tiles = tile.parentElement.querySelectorAll('.tile');
             tiles.forEach(function(item) {
@@ -358,31 +405,36 @@
 
         function populateAccordions(outputs) {
             // Populate Criteria list
+
+            var months = outputs.months_residence_req;
             var criteria_counter = 0;
             var criteria1 = "";
             var criteria2 = "";
             var criteria3 = "";
             var criteria4 = "";
-            if(outputs.guarantor=="guarantor_yes"){
-
-            }
-
             if(outputs.first_home_guarantee=="first_home_guarantee_yes"){
-                
+                criteria1 = ` <strong>First Home Buyer Guarantee </strong> <br> To be eligible for the First Home Buyers Guarantee you must be a first home owner and have an income under $125,000 for individuals and $200,000 for joint applicants. <br> You must also apply through a lender that participates in the Home Buyers Guarantee`
             }
-
             if(outputs.FHOG>0){
-
+                criteria2 = `<strong>First Home Owner Grant </strong> <br> You must be purchasing a new home that has not been previously occupied or sold as a place of residence which includes a substantially renovated home. <br>
+                You or your spouse must not have previously owned/held an interest in a residential property in Australia. <br>
+                You must reside in the home as your principal place of residence for a continuous period of ${months} months. With that period beginning within 12 months of the settlement date of the property`
             }
-
             if(outputs.stamp_duty_concession > 0){
-
+                criteria3 = `<strong>Stamp Duty Concession </strong> <br> You must be purchasing a new home or land that has not been previously occupied or sold as a place of residence which includes a substantially renovated home.
+                <br>You or your spouse must not have previously owned/held an interest in a  residential property in Australia.`
+            }
+            if(outputs.guarantor=="guarantor_yes"){
+                criteria4 = `<strong>Guarantor </strong> <br> Your guarantor will also need to be a home owner as their home equity forms part of the security for your first home loan. <br>  Most lenders will only allow a guarantor to be an immediate family member.`
             }
 
-            document.getElementById('accordionCriteria1').textContent = criteria1;
-            document.getElementById('accordionCriteria2').textContent = criteria2;
-            document.getElementById('accordionCriteria3').textContent = criteria3;
-            document.getElementById('accordionCriteria4').textContent = criteria4;
+
+            
+
+            document.getElementById('accordionCriteria1').innerHTML = criteria1;
+            document.getElementById('accordionCriteria2').innerHTML = criteria2;
+            document.getElementById('accordionCriteria3').innerHTML = criteria3;
+            document.getElementById('accordionCriteria4').innerHTML = criteria4;
 
             // Populate Options to reduce savings required 
             var option_counter = 0;
@@ -532,7 +584,7 @@
 
             // Constants for fees
             var FHOG = 0;
-            var stamp_duty_fee = 10000;
+            var stamp_duty_fee = 0;
             var other_govt_costs = 6000;
             var conveyancing_fees = 1000;
             var LMI = 8000;
@@ -563,6 +615,7 @@
             }
 
             if(state == "NSW"){
+                months_residence_req = 6;
                 other_govt_costs = 348;
 
                 if(house_price<=364000){
@@ -600,6 +653,7 @@
             }
 
             if(state == "VIC"){
+                months_residence_req = 12;
                 other_govt_costs = 0.0025*house_price + 154;
 
                 if(house_price <= 130000){
@@ -645,6 +699,7 @@
             }
 
             if(state == "SA"){
+                months_residence_req = 6;
                 other_govt_costs = 0.0097*house_price;
                 if(house_price<=200000){
                     stamp_duty_fee = 2830 + 4*(house_price-100000)/100;
@@ -674,6 +729,7 @@
                 
             }
             if(state == "QLD"){
+                months_residence_req = 6;
                 other_govt_costs = 151 + 0.0036*house_price;
 
                 var real_stamp_duty = 0;
@@ -727,6 +783,7 @@
             }
 
             if( state == "WA"){
+                months_residence_req = 6;
                 other_govt_costs = 452+0.0001875*house_price;
                 var real_stamp_duty = 0;
                 if(house_price <=120000){
@@ -764,6 +821,7 @@
             }
 
             if(state == "ACT"){
+                months_residence_req = 12;
                 other_govt_costs = 645;
                 if(house_price<=260000){
                     stamp_duty_fee = 0.4*(house_price/100);
@@ -802,6 +860,7 @@
             }
 
             if(state == "NT"){
+                months_residence_req = 6;
                 other_govt_costs = 369;
                 if(house_price < 525000){
                     stamp_duty_fee = 0.06571441*(house_price/1000)*(house_price/1000)+15*(house_price/1000);
@@ -827,6 +886,7 @@
             }
 
             if(state == "TAS"){
+                months_residence_req = 6;
                 other_govt_costs = 422;
                 if(house_price<=200000){
                     stamp_duty_fee = 1560 + 3.5*(house_price-75000)/100;
@@ -866,6 +926,7 @@
             
             return { 
                 true_deposit: true_deposit,
+                state: state,
                 loan_value: loan_value,
                 FHOG: FHOG,
                 total_fees: total_fees,
@@ -881,7 +942,8 @@
                 house_type:house_type,
                 deposit_percentage:deposit_percentage,
                 total_deposit_available: total_deposit_available,
-                house_price: house_price
+                house_price: house_price,
+                months_residence_req: months_residence_req 
             };
 
             
@@ -889,19 +951,34 @@
 
         function showInfo(infoId) {
             var tooltip = document.getElementById(infoId + '-tooltip');
-            
+            var isVisible = tooltip.classList.contains('active');
 
-            var icon = document.querySelector('#' + infoId + ' + .info-icon');
-            tooltip.classList.toggle('active');
-
-            if (tooltip.classList.contains('active')) {
-                var iconRect = icon.getBoundingClientRect();
-                // Calculate position to the right of the info icon
-                tooltip.style.top = (iconRect.top - tooltip.offsetHeight / 2 + icon.offsetHeight / 2) + 'px';
-                tooltip.style.left = (iconRect.left + icon.offsetWidth + 10) + 'px'; // Adjust spacing as needed
+            if (isVisible) {
+                tooltip.classList.remove('active'); // Hide the tooltip
             } else {
-                tooltip.style.display = 'none';
+                // Hide all tooltips before showing the current one
+                document.querySelectorAll('.tooltip').forEach(function(item) {
+                    item.classList.remove('active');
+                });
+
+                var infoIcon = document.querySelector('[data-tooltip-id="' + infoId + '-tooltip"]');
+                positionTooltip(infoIcon, tooltip);
+
+                tooltip.classList.add('active', 'right'); // Show the tooltip and position it to the right
             }
+        }
+
+        // Function to position tooltip next to its corresponding info icon
+        function positionTooltip(element, tooltip) {
+            const iconRect = element.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+
+            // Calculate the position
+            const top = iconRect.top + window.scrollY; // Adjust as needed
+            const left = iconRect.right + window.scrollX + 100; // Position to the right of the icon
+
+            tooltip.style.top = top + 'px';
+            tooltip.style.left = left + 'px';
         }
 
         
@@ -909,6 +986,7 @@
             var outputs = calculate();
 
             if(!outputs){
+                alert("Please ensure you select an option for every input.");
                 return;
             }
             // Format amounts with commas for thousands separator
