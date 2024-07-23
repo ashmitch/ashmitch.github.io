@@ -7,13 +7,12 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-YS6P9SVTRP');
     </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<title>Habitat - Home Loan Deposit Calculator</title>
+<title>Habitat - Deposit Calculator - Find my Budget</title>
 <style>
     body {
         font-family: 'Montserrat', sans-serif;
@@ -40,6 +39,8 @@
         border: 1px solid #808080;
         border-radius: 8px;
         background-color: #f9f9f9;
+        margin-top: 60px;
+        margin-left: 200px;
         margin-right: 20px;
         color: #006400;
     }
@@ -58,19 +59,37 @@
         box-sizing: border-box;
         margin-bottom: 10px;
     }
-    .result-container,
-    .accordion-container {
+    .result-container {
         flex-basis: 50%;
         margin-top: 20px;
         max-width: 1200px;
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
     }
     .result-container {
         flex-grow: 1; /* Take up remaining space */
         margin-top: 20px;
+        margin-right: 200px;
         max-width: 1200px; /* Adjust maximum width as needed */
         background-color: #f0f0f0;
         padding: 20px;
         color: #006400;
+    }
+
+    /* Media query for smaller screens (like phones) */
+    @media only screen and (max-width: 767px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container {
+            width: 100%; /* Full width on small screens */
+            margin-right: 0;
+        }
+        .result-container {
+            width: 100%; /* Full width on small screens */
+        }
     }
     .result {
         border: 1px solid #808080;
@@ -78,9 +97,6 @@
         background-color: #f0f0f0;
         padding: 20px;
         color: #006400;
-    }
-    .accordion-container {
-        max-width: 1200px;
     }
     .accordion {
         background-color: #f0f0f0;
@@ -216,6 +232,8 @@
         border: #006400;
         border-radius: 4px;
         transition: background-color 0.3s ease;
+        margin-top:140px;
+        margin-left: 200px;
     }
     .back-button:hover {
         background-color: #C7F5C7;
@@ -290,7 +308,9 @@
                     Are you eligible for the First Home Buyer Guarantee?
                     <span class="info-icon" data-tooltip-id="info-first_home_guarantee-tooltip" onclick="showInfo('info-first_home_guarantee')">i</span>
                     <div id="info-first_home_guarantee-tooltip" class="tooltip">
-                        The first home buyer guarantee is X, Y, Z
+                        The First Home Buyer Guarantee allows eligible home buyers to purchase a home with a deposit of as little as 5% <br><br>
+                        The guarantee is not a cash payment, but instead the government with act as a guarantor for your loan. <br><br>
+                        This scheme can be used for established homes, house & land packages, newly built homes and land with a separate contract to build a home. <br>
                     </div>
                 </label>
                 <div class="tiles">
@@ -343,28 +363,28 @@
             <div class="result">
                 <p style="font-weight: bold;" id="loanValue">Loan Value: </p>
             </div>
-            <div class="accordion-container">
-                <button class="accordion">Want to see some options to reduce your deposit required?</button>
-                <div class="panel">
-                    <p id="accordionOption1"></p>
-                    <p id="accordionOption2"></p>
-                    <p id="accordionOption3"></p>
-                    <p id="accordionOption4"></p>
-                    <p id="accordionOption5"></p>
-                    <p id="accordionOption6"></p>
-                    <p id="accordionOption7"></p>
-                </div>
-                <button class="accordion">Eligibility Criteria Assumptions</button>
-                <div class="panel">
-                    <p id="accordionCriteria1"></p>
-                    <p id="accordionCriteria2"></p>
-                    <p id="accordionCriteria3"></p>
-                    <p id="accordionCriteria4"></p>
-                    <p id="accordionCriteria5"></p>
-                    <p id="accordionCriteria6"></p>
-                    <p id="accordionCriteria7"></p>
-                </div>
+            <br>
+            <button class="accordion">Want to see some options to reduce your deposit required?</button>
+            <div class="panel">
+                <p id="accordionOption1"></p>
+                <p id="accordionOption2"></p>
+                <p id="accordionOption3"></p>
+                <p id="accordionOption4"></p>
+                <p id="accordionOption5"></p>
+                <p id="accordionOption6"></p>
+                <p id="accordionOption7"></p>
             </div>
+            <button class="accordion">Eligibility Criteria Assumptions</button>
+            <div class="panel">
+                <p id="accordionCriteria1"></p>
+                <p id="accordionCriteria2"></p>
+                <p id="accordionCriteria3"></p>
+                <p id="accordionCriteria4"></p>
+                <p id="accordionCriteria5"></p>
+                <p id="accordionCriteria6"></p>
+                <p id="accordionCriteria7"></p>
+            </div>
+                
         </div>
         
     </div>

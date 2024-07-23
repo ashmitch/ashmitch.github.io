@@ -10,171 +10,184 @@
 
     gtag('config', 'G-YS6P9SVTRP');
     </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <title>Habitat - Home Loan Deposit Calculator</title>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-            margin-top: 20px;
-            display: flex;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<title>Habitat - Deposit Calculator - Set Budget</title>
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f0f0f0;
+        color: #006400;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%; /* Take full width */
+        max-width: 1800px; /* Limit maximum width */
+        margin-top: 20px;
+    }
+
+    .form-container {
+        flex-grow: 1; /* Take up remaining space */
+        padding: 20px;
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        margin-top: 60px;
+        margin-left: 200px;
+        margin-right: 20px;
+        color: #006400;
+    }
+    select#state,
+    select#deposit_percentage {
+        width: 30%;
+        padding: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    input#house_price {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    .result-container {
+        flex-basis: 50%;
+        margin-top: 20px;
+        max-width: 1200px;
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
+    }
+    .result-container {
+        flex-grow: 1; /* Take up remaining space */
+        margin-top: 20px;
+        margin-right: 200px;
+        max-width: 1200px; /* Adjust maximum width as needed */
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
+    }
+
+    /* Media query for smaller screens (like phones) */
+    @media only screen and (max-width: 767px) {
+        .container {
             flex-direction: column;
             align-items: center;
-            background-color: #f0f0f0;
-            color: #006400;
         }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%; /* Take full width */
-            max-width: 1800px; /* Limit maximum width */
-            margin-top: 20px;
-        }
-
         .form-container {
-            flex-grow: 1; /* Take up remaining space */
-            padding: 20px;
-            border: 1px solid #808080;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            margin-right: 20px;
-            color: #006400;
-        }
-        select#state,
-        select#deposit_percentage {
-            width: 30%;
-            padding: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-        input#house_price {
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-        .result-container,
-        .accordion-container {
-            flex-basis: 50%;
-            margin-top: 20px;
-            max-width: 1200px;
+            width: 100%; /* Full width on small screens */
+            margin-right: 0;
         }
         .result-container {
-            flex-grow: 1; /* Take up remaining space */
-            margin-top: 20px;
-            max-width: 1200px; /* Adjust maximum width as needed */
-            background-color: #f0f0f0;
-            padding: 20px;
-            color: #006400;
+            width: 100%; /* Full width on small screens */
         }
-        .result {
-            border: 1px solid #808080;
-            border-radius: 8px;
-            background-color: #f0f0f0;
-            padding: 20px;
-            color: #006400;
-        }
-        .accordion-container {
-            max-width: 1200px;
-            margin-top: 20px;
-        }
-        .accordion {
-            background-color: #f0f0f0;
-            color: #006400;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            text-align: left;
-            border: 2px solid #c5c5c5;
-            outline: none;
-            transition: background-color 0.3s ease;
-        }
-        .accordion.active,
-        .accordion:hover {
-            background-color: #C7F5C7;
-        }
-        .panel {
-            padding: 0 18px;
-            display: none;
-            background-color: white;
-            overflow: hidden;
-            text-align: left;
-        }
-        .panel.show {
-            display: block;
-        }
-        form {
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #808080;
-        }
-        .tiles {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            border-top: 1px solid #ddd; /* Add a border at the top */
-        }
-        .tile {
-            flex: 0.7;
-            text-align: center;
-            cursor: pointer;
-            padding: 10px;
-            border: 1px solid #808080;
-            border-radius: 8px;
-            background-color: #fff;
-            transition: background-color 1s ease;
-            justify-content: center;
-            align-items: center;
-        }
-        .tile.selected {
-            background-color: #C7F5C7;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #006400;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #C7F5C7;
-            color: #006400;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            text-align: center;
-        }
-        .result p {
-            margin: 10px 0;
-            color: #808080;
-        }
-        .result.bold {
-            font-weight: bold;
-            font-size: 24px;
-            color: #006400;
-        }
-        .info-icon {
+    }
+    .result {
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+        padding: 20px;
+        color: #006400;
+    }
+    .accordion {
+        background-color: #f0f0f0;
+        color: #006400;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: 1px solid #ddd;
+        outline: none;
+        transition: background-color 0.3s ease;
+    }
+    .accordion.active,
+    .accordion:hover {
+        background-color: #C7F5C7;
+    }
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+        text-align: left;
+    }
+    .panel.show {
+        display: block;
+    }
+    form {
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #808080;
+    }
+    .tiles {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .tile {
+        flex: 0.6;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid #808080;
+        border-radius: 8px;
+        background-color: #fff;
+        transition: background-color 1s ease;
+    }
+    .tile.selected {
+        background-color: #C7F5C7;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #006400;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #C7F5C7;
+        color: #006400;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    .result p {
+        margin: 10px 0;
+        color: #808080;
+    }
+    .result.bold {
+        font-weight: bold;
+        font-size: 24px;
+        color: #006400;
+    }
+    .info-icon {
             display: inline-block;
             width: 20px;
             height: 20px;
@@ -188,7 +201,7 @@
             margin-left: 5px; /* Adjust spacing */
         }
 
-        .tooltip {
+    .tooltip {
             position: absolute;
             background-color: #ffffff;
             color: #006400;
@@ -198,16 +211,16 @@
             z-index: 1;
             display: none;
             max-width: 400px;
-        }
+    }
 
-        .tooltip.active {
-            display: block;
-        }
-        .tooltip.right {
-            left: calc(100% + 30px); /* Adjust spacing as needed */
-            top: 0; /* Aligns to the top of the info icon */
-        }
-        .back-button {
+    .tooltip.active {
+        display: block;
+    }
+    .tooltip.right {
+        left: calc(100% + 30px); /* Adjust spacing as needed */
+        top: 0; /* Aligns to the top of the info icon */
+    }
+    .back-button {
         position: absolute;
         top: 45px; /* Adjust top position as needed */
         left: 30px; /* Adjust left position as needed */
@@ -220,6 +233,8 @@
         border: #006400;
         border-radius: 4px;
         transition: background-color 0.3s ease;
+        margin-top:140px;
+        margin-left: 200px;
     }
     .back-button:hover {
         background-color: #C7F5C7;
@@ -227,7 +242,7 @@
     }
 
 
-    </style>
+</style>
 </head>
 <body>
     <h1>Habitat</h1>
@@ -298,7 +313,9 @@
                     Are you eligible for the First Home Buyer Guarantee?
                     <span class="info-icon" data-tooltip-id="info-first_home_guarantee-tooltip" onclick="showInfo('info-first_home_guarantee')">i</span>
                     <div id="info-first_home_guarantee-tooltip" class="tooltip">
-                        The first home buyer guarantee is X, Y, Z
+                        The First Home Buyer Guarantee allows eligible home buyers to purchase a home with a deposit of as little as 5% <br><br>
+                        The guarantee is not a cash payment, but instead the government with act as a guarantor for your loan. <br><br>
+                        This scheme can be used for established homes, house & land packages, newly built homes and land with a separate contract to build a home. <br>
                     </div>
                 </label>
                 <div class="tiles">
@@ -352,28 +369,28 @@
                 <p id="loanValue">Loan Value: </p>
 
             </div>
-            <div class="accordion-container">
-                <button class="accordion">Want to see some options to reduce your deposit required?</button>
-                <div class="panel">
-                    <p id="accordionOption1"></p>
-                    <p id="accordionOption2"></p>
-                    <p id="accordionOption3"></p>
-                    <p id="accordionOption4"></p>
-                    <p id="accordionOption5"></p>
-                    <p id="accordionOption6"></p>
-                    <p id="accordionOption7"></p>
-                </div>
-                <button class="accordion">Eligibility Criteria Assumptions</button>
-                <div class="panel">
-                    <p id="accordionCriteria1"></p>
-                    <p id="accordionCriteria2"></p>
-                    <p id="accordionCriteria3"></p>
-                    <p id="accordionCriteria4"></p>
-                    <p id="accordionCriteria5"></p>
-                    <p id="accordionCriteria6"></p>
-                    <p id="accordionCriteria7"></p>
-                </div>
+            <br>
+            <button class="accordion">Want to see some options to reduce your deposit required?</button>
+            <div class="panel">
+                <p id="accordionOption1"></p>
+                <p id="accordionOption2"></p>
+                <p id="accordionOption3"></p>
+                <p id="accordionOption4"></p>
+                <p id="accordionOption5"></p>
+                <p id="accordionOption6"></p>
+                <p id="accordionOption7"></p>
             </div>
+            <button class="accordion">Eligibility Criteria Assumptions</button>
+            <div class="panel">
+                <p id="accordionCriteria1"></p>
+                <p id="accordionCriteria2"></p>
+                <p id="accordionCriteria3"></p>
+                <p id="accordionCriteria4"></p>
+                <p id="accordionCriteria5"></p>
+                <p id="accordionCriteria6"></p>
+                <p id="accordionCriteria7"></p>
+            </div>
+            
         </div>
         
         
