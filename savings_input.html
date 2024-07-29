@@ -11,6 +11,7 @@
     </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="\\uofa\users$\users2\a1707492\Personal Files\Home Loan Calc Website\Draft Logos & Brand\Favicons\favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 <title>Habitat - Deposit Calculator - Find my Budget</title>
 <style>
@@ -21,12 +22,30 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #f0f0f0;
+        background-color: #ECFCEC;
         color: #006400;
     }
+    .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            max-width: 80px; /* Make logo smaller */
+            height: auto;
+            margin-right: 15px; /* Space between logo and title */
+        }
+
+        .header h1 {
+            margin: 0; /* Remove default margin */
+            font-size: 2.5em; /* Adjust size if needed */
+            color: #006400;
+            text-align: left;
+        }
     .container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: flex-start;
         width: 100%; /* Take full width */
         max-width: 1800px; /* Limit maximum width */
@@ -38,10 +57,8 @@
         padding: 20px;
         border: 1px solid #808080;
         border-radius: 8px;
-        background-color: #f9f9f9;
+        background-color: #FCFBF0;
         margin-top: 60px;
-        margin-left: 200px;
-        margin-right: 20px;
         color: #006400;
     }
     select#state,
@@ -63,16 +80,6 @@
         flex-basis: 50%;
         margin-top: 20px;
         max-width: 1200px;
-        background-color: #f0f0f0;
-        padding: 20px;
-        color: #006400;
-    }
-    .result-container {
-        flex-grow: 1; /* Take up remaining space */
-        margin-top: 20px;
-        margin-right: 200px;
-        max-width: 1200px; /* Adjust maximum width as needed */
-        background-color: #f0f0f0;
         padding: 20px;
         color: #006400;
     }
@@ -94,12 +101,12 @@
     .result {
         border: 1px solid #808080;
         border-radius: 8px;
-        background-color: #f0f0f0;
+        background-color: #FCFBF0;
         padding: 20px;
         color: #006400;
     }
     .accordion {
-        background-color: #f0f0f0;
+        background-color: #fff;
         color: #006400;
         cursor: pointer;
         padding: 18px;
@@ -200,66 +207,19 @@
             margin-left: 5px; /* Adjust spacing */
         }
 
-    .tooltip {
-            position: absolute;
-            background-color: #ffffff;
-            color: #006400;
-            border: 1px solid #808080;
-            border-radius: 4px;
-            padding: 8px;
-            z-index: 1;
-            display: none;
-            max-width: 400px;
-    }
-
-    .tooltip.active {
-        display: block;
-    }
-    .tooltip.right {
-        left: calc(100% + 30px); /* Adjust spacing as needed */
-        top: 0; /* Aligns to the top of the info icon */
-    }
-    .back-button {
-        position: absolute;
-        top: 45px; /* Adjust top position as needed */
-        left: 30px; /* Adjust left position as needed */
-        padding: 10px 20px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: #fff;
-        color: #006400;
-        border: #006400;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-        margin-top:140px;
-        margin-left: 200px;
-    }
-    .back-button:hover {
-        background-color: #C7F5C7;
-        color: #006400;
-    }
-
-
 </style>
 </head>
 <body>
-    <h1>Habitat</h1>
-    <h2>HomeLoans for Australian Buyers and Investors Tips and Toolkit </h2>
+    <div class="logo">
+        <img src="\\uofa\users$\users2\a1707492\Personal Files\Home Loan Calc Website\Draft Logos & Brand\light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
+        <h1>Habitat</h1>
+    </div>
     <div class="container">
-        <div class="container">
-            <button class="back-button" onclick="goBack()"> Back to Main Menu</button>
         <div class="form-container">
             <form id="inputForm">
                 <label for="house_type">
                     What type of home are you looking to buy? 
-                    <span class="info-icon" data-tooltip-id="info-house-type-tooltip" onclick="showInfo('info-house-type')">i</span>
-                    <div id="info-house-type-tooltip" class="tooltip">
-                        Choose the house type which corresponds to what you are looking to buy: <br> <br>
-                        <strong>Established Home</strong> - a house which is already built & has been lived in before by someone else.<br><br>
-                        <strong>Newly Built Home</strong> - a house which has just been built & has never been lived in before (e.g an Apartment or Townhouse from a new development or House & Land Package)<br><br>
-                        <strong>Land to Build On</strong> - land which you are buying with intentions to build a house on.<br><br>
-                    </div>
+                    <span class="info-icon" onclick="showHelpInfo()">i</span>
                 </label>
                 <div class="tiles">
                     <div class="tile" id="established" onclick="toggleTile(this,'house_type','established')"> Established Home</div>
@@ -292,11 +252,8 @@
                 <br>
                 <label for="first_home_buyer">
                     Are you a First Home Buyer?
-                    <span class="info-icon" data-tooltip-id="info-first_home_buyer-tooltip" onclick="showInfo('info-first_home_buyer')">i</span>
-                    <div id="info-first_home_buyer-tooltip" class="tooltip">
-                        You are a first home buyer if you have not owned and/or held any interest in a residential property in Australia. <br><br>
-                        If your partner/spouse owns a residential property in Australia, then you will not be able to access the grants & concessions available to First Home Buyers either.
-                    </div>
+                    <span class="info-icon" onclick="showHelpInfo()">i</span>
+
                 </label>
                 <div class="tiles">
                     <div class="tile" id="first_home_buyer_yes" onclick="toggleTile(this,'first_home_buyer','first_home_buyer_yes')">Yes</div>
@@ -306,12 +263,7 @@
                 <br>
                 <label for="first_home_guarantee">
                     Are you eligible for the First Home Buyer Guarantee?
-                    <span class="info-icon" data-tooltip-id="info-first_home_guarantee-tooltip" onclick="showInfo('info-first_home_guarantee')">i</span>
-                    <div id="info-first_home_guarantee-tooltip" class="tooltip">
-                        The First Home Buyer Guarantee allows eligible home buyers to purchase a home with a deposit of as little as 5% <br><br>
-                        The guarantee is not a cash payment, but instead the government with act as a guarantor for your loan. <br><br>
-                        This scheme can be used for established homes, house & land packages, newly built homes and land with a separate contract to build a home. <br>
-                    </div>
+                    <span class="info-icon" onclick="showHelpInfo()">i</span>
                 </label>
                 <div class="tiles">
                     <div class="tile" id="first_home_guarantee_yes" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_yes')">Yes</div>
@@ -321,12 +273,7 @@
                 <br>
                 <label for="guarantor">
                     Do you have a guarantor?
-                    <span class="info-icon" data-tooltip-id="info-guarantor-tooltip" onclick="showInfo('info-guarantor')">i</span>
-                    <div id="info-guarantor-tooltip" class="tooltip">
-                        A guarantor is someone (usually a family member) who will be guaranteeing the payments of the home loan.
-                        This means that if you fail to pay the debt, it then falls to that family member to pay it instead. <br><br>
-                        Most lenders require a guarantor to be an immediate family member & will not accept a friend or other form of relation to be a guarantor.
-                    </div></label>
+                    <span class="info-icon" onclick="showHelpInfo()">i</span>
                 <div class="tiles">
                     <div class="tile" id="guarantor_yes" onclick="toggleTile(this,'guarantor','guarantor_yes')">Yes</div>
                     <div class="tile" id="guarantor_no" onclick="toggleTile(this,'guarantor','guarantor_no')">No</div>
@@ -390,27 +337,8 @@
     </div>
 
     <script>
-        function goBack() {
-            // Example: Navigate back in history
-            window.history.back();
-        }
-        function showInfo(infoId) {
-            var tooltip = document.getElementById(infoId + '-tooltip');
-            var isVisible = tooltip.classList.contains('active');
-
-            if (isVisible) {
-                tooltip.classList.remove('active'); // Hide the tooltip
-            } else {
-                // Hide all tooltips before showing the current one
-                document.querySelectorAll('.tooltip').forEach(function(item) {
-                    item.classList.remove('active');
-                });
-
-                var infoIcon = document.querySelector('[data-tooltip-id="' + infoId + '-tooltip"]');
-                positionTooltip(infoIcon, tooltip);
-
-                tooltip.classList.add('active', 'right'); // Show the tooltip and position it to the right
-            }
+        function showHelpInfo() {
+            window.open("help.html", "_blank");
         }
 
         // Function to position tooltip next to its corresponding info icon
