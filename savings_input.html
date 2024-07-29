@@ -235,6 +235,43 @@
             cursor: pointer; /* Show pointer cursor on hover */
             margin-left: 5px; /* Adjust spacing */
         }
+        /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 600px; /* Responsive width */
+        border-radius: 10px; /* Rounded corners */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 </style>
 </head>
@@ -366,7 +403,56 @@
         
     </div>
 
+    <div id="dataPolicyModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h4>Data Collection Policy</h4>
+          <p>We collect the data you enter into our calculators & tools to improve our services. By continuing to use this site, you agree to our data collection policy. For more information, please refer to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+          <button id="acceptBtn">I Accept</button>
+        </div>
+      </div>
+
     <script>
+        var modal = document.getElementById("dataPolicyModal");
+
+        // Get the button that opens the modal
+        var acceptBtn = document.getElementById("acceptBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // Show the modal when the page loads
+        window.onload = function() {
+            modal.style.display = "block";
+        };
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // When the user clicks on the "I Accept" button, close the modal
+        acceptBtn.onclick = function() {
+            modal.style.display = "none";
+            // You can also set a cookie or local storage item here to remember the user's acceptance
+            localStorage.setItem('dataPolicyAccepted', 'true');
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        // Check if the data policy has been accepted before showing the content
+        window.onload = function() {
+            if (!localStorage.getItem('dataPolicyAccepted')) {
+                modal.style.display = "block";
+            } else {
+                // Optionally, you could hide the modal and show content if the policy is accepted
+            }
+        };
         function showHelpInfo() {
             window.open("help.html", "_blank");
         }
@@ -962,7 +1048,26 @@
 
             
         }
+        function sendToGoogleSheet(data) {
+            var url = 'https://script.google.com/macros/s/AKfycbwibu7TZXBfXifMsk-ObcK0o3IPPZh3Eg-SIEpFWQvVTJrr2iJZed9VVeh-XqWBiUVtJA/exec'; // Replace with your actual web app URL
+            var payload = JSON.stringify(data);
 
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: payload
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Data successfully sent to Google Sheets.');
+                } else {
+                    console.error('Error sending data to Google Sheets.');
+                }
+            }).catch(error => {
+                console.error('Fetch error:', error);
+            });
+        }
         
         function display(maxHousePrice){
             var outputs = calculate(maxHousePrice);
@@ -973,6 +1078,7 @@
                 return;
             }
             // Format amounts with commas for thousands separator
+            var house_price = maxHousePrice;
             var formatted_house_price = maxHousePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             var formatted_loan_value = outputs.loan_value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             var formatted_true_deposit = outputs.true_deposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -999,6 +1105,30 @@
             document.getElementById('loanValue').innerHTML = "<p class='bold'>Loan Value: " + formatted_loan_value + "</p>";
 
             populateAccordions(outputs);
+
+            var data = {
+                house_type: outputs.house_type,
+                state: outputs.state,
+                regional: outputs.regional,
+                deposit_percent: outputs.deposit_percentage,
+                fhb: outputs.first_home_buyer,
+                fhbg: outputs.first_home_guarantee,
+                guarantor: outputs.guarantor,
+                maxHousePrice: house_price,
+                loan_value: formatted_loan_value,
+                true_deposit: formatted_true_deposit,
+                FHOG: formatted_fhog,
+                total_fees: formatted_tot_fees,
+                stamp_duty_fee: formatted_stamp_duty,
+                stamp_duty_concession: formatted_stamp_duty_conc,
+                other_govt_costs: formatted_other_govt_costs,
+                amount_req: formatted_amount_req,
+                conveyancing_fees: formatted_conv_fees,
+                LMI: formatted_LMI
+            };
+
+            // Send data to Google Sheets
+            sendToGoogleSheet(data);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -1017,5 +1147,6 @@
         });
 
     </script>
+    
 </body>
 </html>
