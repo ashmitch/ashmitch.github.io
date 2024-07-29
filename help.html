@@ -19,22 +19,36 @@
         }
 
         .header {
+            position: fixed; /* Fix the header to the top */
+            top: 0; /* Align to the top */
+            left: 0; /* Align to the left */
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            padding: 10px 20px; /* Add padding around the header */
+            background-color: #ECFCEC;
+
+            width: 100%; /* Full width */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
+            z-index: 10; /* Ensure it's above other content */
         }
 
         .header img {
-            max-width: 80px; /* Make logo smaller */
+            max-width: 60px; /* Adjust the logo size */
             height: auto;
-            margin-right: 15px; /* Space between logo and title */
+            margin-right: 10px; /* Reduce space between logo and title */
         }
 
         .header h1 {
             margin: 0; /* Remove default margin */
-            font-size: 2.5em; /* Adjust size if needed */
+            font-size: 1.5em; /* Smaller title size */
             color: #006400;
             text-align: left;
+        }
+
+        h2 {
+            font-size: 36px; /* Increase font size of h2 */
+            color: #006400;
+            margin-top: 100px; /* Move h2 down */
         }
 
         .section {
@@ -48,7 +62,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .section h2 {
+        .section h3 {
             font-size: 24px;
             color: #006400;
         }
@@ -74,36 +88,46 @@ gtag('js', new Date());
 gtag('config', 'G-YS6P9SVTRP');
 </script>
 <body>
-    <div class="logo">
+    <div class="header">
         <img src="light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
         <h1>Habitat</h1>
     </div>
-    
+    <h2>Help Centre</h2>
+
     <div class="section">
-        <h2>Types of Homes</h2>
+        <h3>What are the types of homes?</h3>
         <p>
-            Here you can provide information about different types of homes such as detached houses, semi-detached houses, townhouses, apartments, and condos. Explain the characteristics, advantages, and potential drawbacks of each type to help users understand their options.
+            <strong>Established Home</strong> - a house which is already built & has been lived in before by someone else.<br><br>
+            <strong>New Home</strong> - a house which has just been built & has never been lived in before (e.g an Apartment or Townhouse from a new development or House & Land Package)<br><br>
+            <strong>Land to Build On</strong> - land which you are buying with intentions to build a house on.<br><br>
+
         </p>
     </div>
 
     <div class="section">
-        <h2>First Home Buyers</h2>
+        <h3>Are you a First Home Buyer?</h3>
         <p>
-            This section should include advice and information specifically for individuals buying their first home. Discuss common challenges faced by first-time buyers, tips for navigating the home-buying process, and any special programs or incentives available to them.
+            You are a first home buyer if you have not owned and/or held any interest in a residential property in Australia. <br><br>
+            If your partner/spouse owns or once owned a residential property in Australia, then you will not be able to access the grants & concessions available to First Home Buyers either.
         </p>
     </div>
 
     <div class="section">
-        <h2>First Home Buyer Guarantee</h2>
+        <h3>What is the First Home Buyer Guarantee?</h3>
         <p>
-            Explain the First Home Buyer Guarantee program, including eligibility criteria, benefits, and how it can assist first-time homebuyers in securing a property with a lower deposit. Provide details on how users can apply for this guarantee and any important deadlines or requirements.
+            The First Home Buyer Guarantee allows eligible home buyers to purchase a home with a deposit of as little as 5% <br><br>
+            The guarantee is not a cash payment, but instead the government with act as a guarantor for your loan. <br><br>
+            This scheme can be used for established homes, house & land packages, newly built homes and land with a separate contract to build a home. <br>
         </p>
     </div>
 
     <div class="section">
-        <h2>Guarantor</h2>
+        <h3>What is a Guarantor?</h3>
         <p>
-            Describe what a guarantor is and how their role can help homebuyers, particularly those with insufficient savings or poor credit histories. Explain the responsibilities of a guarantor, the potential risks involved, and how this arrangement can impact both the borrower and the guarantor.
+            A guarantor is someone (usually a family member) who will be guaranteeing the payments of the home loan.
+            This means that if you fail to pay the debt, it then falls to that family member to pay it instead. <br><br>
+            Most lenders require a guarantor to be an immediate family member & will not accept a friend or other form of relation to be a guarantor.
+
         </p>
     </div>
 
