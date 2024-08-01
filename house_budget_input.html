@@ -52,6 +52,52 @@
         color: #006400;
         text-align: left;
     }
+    .menu {
+            position: relative;
+            display: inline-block;
+            margin-left: auto; /* Pushes the menu button to the right */
+            margin-right: 50px;
+        }
+
+    .menu button {
+            background-color: #006400;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+    }
+
+    .menu button:hover {
+            background-color: #004d00;
+    }
+    .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #FCFBF0;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+    }
+
+    .dropdown a {
+            color: #006400;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+    }
+
+    .dropdown a:hover {
+            background-color: #f1f1f1;
+    }
+
+    .menu:hover .dropdown {
+            display: block;
+    }
     .container {
         display: flex;
         justify-content: center;
@@ -252,6 +298,16 @@
     <div class="header">
         <img src="light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
         <h1>Habitat</h1>
+        <div class="menu">
+            <button>Menu</button>
+            <div class="dropdown">
+                <a href="/about-us.html">About Us</a>
+                <a href="/calculators.html">Calculators</a>
+                <a href="/advertise-with-us.html">Advertise with Us</a>
+                <a href="/contact-us.html">Contact Us</a>
+                <a href="/terms-of-service.html">Terms of Service</a>
+            </div>
+        </div>
     </div>
     <h2>Home Loan Deposit Calculator</h2>
     <div class="container">
