@@ -552,8 +552,8 @@
             contentType: 'application/json',
             body: JSON.stringify(data)
             })
-            .then(response => console.log('Success:', response))
-            .catch(error => console.error('Error:', error));
+            .then(response => alert("Data successful saved to DB"))
+            .catch(error => alert("Data save error."));
         }
 
         function populateAccordions(outputs) {

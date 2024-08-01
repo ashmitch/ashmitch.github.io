@@ -1007,6 +1007,17 @@
             
         }
 
+        function sendToDB(data) {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx7vsTJ0qEx8H4Zgn8ogWhaEDwpf7Tgy7oUrG4eic8vfvkh9mU5LDEgpu1AffaViFBN6w/exec'; // Replace with your Google Apps Script URL
+
+            fetch(scriptURL, {
+            method: 'POST',
+            contentType: 'application/json',
+            body: JSON.stringify(data)
+            })
+            .then(response => alert("Data successful saved to DB"))
+            .catch(error => alert("Data save error."));
+        }
 
         // Function to position tooltip next to its corresponding info icon
         function positionTooltip(element, tooltip) {
@@ -1060,6 +1071,29 @@
             
 
             populateAccordions(outputs); // Populate accordion content
+            var data = {
+                house_type: outputs.house_type,
+                state: outputs.state,
+                regional: outputs.regional,
+                deposit_percent: outputs.deposit_percentage,
+                fhb: outputs.first_home_buyer,
+                fhbg: outputs.first_home_guarantee,
+                guarantor: outputs.guarantor,
+                maxHousePrice: house_price,
+                loan_value: formatted_loan_value,
+                true_deposit: formatted_true_deposit,
+                FHOG: formatted_fhog,
+                total_fees: formatted_tot_fees,
+                stamp_duty_fee: formatted_stamp_duty,
+                stamp_duty_concession: formatted_stamp_duty_conc,
+                other_govt_costs: formatted_other_govt_costs,
+                amount_req: formatted_amount_req,
+                conveyancing_fees: formatted_conv_fees,
+                LMI: formatted_LMI
+            };
+
+            // Send data to Google Sheets
+            sendToDB(data);
         }
         document.addEventListener('DOMContentLoaded', function () {
             var accordions = document.getElementsByClassName('accordion');
