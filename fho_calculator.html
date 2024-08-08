@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
+
+        <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-52ZW7XWL');</script>
+        <!-- End Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS6P9SVTRP"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -402,6 +410,10 @@
 </style>
 </head>
 <body>
+        <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52ZW7XWL"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     <div class="header">
         <img src="light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
         <h1>Habitat</h1>
@@ -535,13 +547,6 @@
                     <form onsubmit="return validatePostcode()">
                         <label for="postcode">Postcode:</label>
                         <input type="text" id="postcode" name="postcode">
-                        <label for="distance">Within</label>
-                        <select id="distance">
-                            <option value="1">1km</option>
-                            <option value="5">5km</option>
-                            <option value="10">10km</option>
-                            <option value="50">50km</option>
-                        </select>
                         <button type = "submit" id="homeSearchButton" onclick="goToConstructedLink('house')">Search</button>
                     </form>
                     
@@ -583,6 +588,7 @@
       </div>
 
     <script>
+        var globalVar = {};
         function validatePostcode() {
             const postcode = document.getElementById('postcode').value;
             const postcodeNumber = parseInt(postcode, 10);
@@ -623,8 +629,12 @@
         }
 
         function goToConstructedLink(link_type) {
+            var house_price = globalVar.house_price;
+            var loan_value = globalVar.loan_value;
+            console.log(house_price);
+            console.log(loan_value);
+
             var house_type = document.getElementById('house_type').value;
-            var house_price = parseFloat(document.getElementById('house_price').value.replace(/,/g, ''));
             var postcodeNumber = document.getElementById('postcode').value;
             console.log(house_price);
 
@@ -648,12 +658,12 @@
             } else {
                 console.log("lender link");
                 // Add additional logic for other link types if needed
-                var loan_value = calculate(house_price).loan_value;
+                
                 link =  `https://www.realestate.com.au/home-loans/compare/?loanPurpose=purchase&purchaseIntent=to_live_in&loanAmount=${loan_value}&propertyValue=${house_price}&repaymentType=principal_and_interest&sortBy=interest_rate&hasBig4Bank=false&page=1`;
             }
 
             // Redirect to the constructed link
-            window.location.href = link;
+            window.open(link, '_blank');
         }
 
         
@@ -903,7 +913,7 @@
             // Format with commas
             input.value = num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
-
+        let maxHousePrice = 0;
         function findMaxHousePrice(){
 
             if(savings_input_response === "Yes"){
@@ -929,6 +939,7 @@
                     console.log("savings:" + savings);
                     if(amount_req <= savings){
                         display(test_val);
+                        let maxHousePrice = test_val;
                         return{
                             house_price: test_val
                         };
@@ -942,6 +953,7 @@
                 }
 
             } else {
+                let maxHousePrice = house_price;
                 return {
                     house_price: house_price
                     
@@ -1332,12 +1344,40 @@
 
             
         }
+        function generateUUID() {
+            // UUID v4 (random)
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // Retrieve or create User ID
+        function getUserId() {
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = generateUUID(); // Generate new UUID if not present
+                localStorage.setItem('userId', userId); // Store User ID
+            }
+            return userId;
+        }
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('sessionId');
+            if (!sessionId) {
+                sessionId = generateUUID(); // Generate new UUID if not present
+                sessionStorage.setItem('sessionId', sessionId); // Store Session ID
+            }
+            return sessionId;
+        }
 
 
 
 
         
         function display(maxHousePrice){
+            var userId = getUserId();
+            var sessionId = getSessionId();
+
             if(savings_input_response === "Yes"){
                 var outputs = calculate(maxHousePrice);
                 var house_price = maxHousePrice;
@@ -1369,7 +1409,8 @@
             var formatted_amount_req = outputs.amount_req.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             var formatted_conv_fees = outputs.conveyancing_fees.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             var formatted_LMI = outputs.LMI.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-
+            globalVar.house_price = outputs.house_price;
+            globalVar.loan_value = outputs.loan_value;
 
             // Display the results on the page
             document.getElementById('purchase_price').innerHTML = "<p class='bold'>Maximum Property Value Budget: " + formatted_house_price + "</p>";
@@ -1389,7 +1430,9 @@
             showActionButtons();
 
             var data = {
-                page_source_savings: savings_input_response,
+                user_id: userId,
+                session_id:sessionId,
+                savings_input: savings_input_response,
                 house_type: outputs.house_type,
                 state: outputs.state,
                 regional: outputs.regional,
