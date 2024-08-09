@@ -63,7 +63,7 @@
     }
 
     .header img {
-        max-width: 60px; /* Adjust the logo size */
+        max-width: 40px; /* Adjust the logo size */
         height: auto;
         margin-right: 10px; /* Reduce space between logo and title */
     }
@@ -533,7 +533,7 @@
                 <div id="homeSearch" class ="hidden">
                     <form onsubmit="return validatePostcode()">
                         <label style = "font-weight: bold;" for="postcode">Postcode:</label>
-                        <input type="text" id="postcode" name="postcode">
+                        <input type="text" id="postcode" placeholder="Enter postcode">
                         <button type = "submit" id="homeSearchButton" onclick="goToConstructedLink('house')&storeInteraction('home_search_click')">Search</button>
                     </form>
                     
