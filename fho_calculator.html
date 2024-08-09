@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<title>Habitat - Deposit Calculator - Find my Budget</title>
+<title>Habitat - First Home Buyers Calculator</title>
 <style>
     body {
         font-family: 'Montserrat', sans-serif;
@@ -22,67 +22,44 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #ECFCEC;
+        background-color: #FFFFFF; /* Changed to white */
         color: #006400;
     }
+
     .menu {
-            position: relative;
-            display: inline-block;
-            margin-left: auto; /* Pushes the menu button to the right */
-            margin-right: 50px;
-        }
-
-    .menu button {
-            background-color: #006400;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
+        margin-left: auto;
+        margin-right:40px; /* Pushes the menu to the right */
+        display: flex; /* Display menu items inline */
+        gap: 20px; /* Space between menu items */
     }
 
-    .menu button:hover {
-            background-color: #004d00;
-    }
-    .dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #FCFBF0;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
+    .menu a {
+        color: #006400;
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        padding: 10px;
     }
 
-    .dropdown a {
-            color: #006400;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-family: 'Montserrat', sans-serif;
+    .menu a:hover {
+        background-color: #006400;
+        color: #fff; /* Add hover effect */
     }
+    
 
-    .dropdown a:hover {
-            background-color: #f1f1f1;
-    }
-
-    .menu:hover .dropdown {
-            display: block;
-    }
+    
     .header {
-            position: fixed; /* Fix the header to the top */
-            top: 0; /* Align to the top */
-            left: 0; /* Align to the left */
-            display: flex;
-            align-items: center;
-            padding: 10px 20px; /* Add padding around the header */
-            background-color: #ECFCEC;
+        position: fixed; /* Fix the header to the top */
+        top: 0; /* Align to the top */
+        left: 0; /* Align to the left */
+        display: flex;
+        align-items: center;
+        padding: 10px 20px; /* Add padding around the header */
+        background-color: #FFFFFF; /* Changed to white */
 
-            width: 100%; /* Full width */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
-            z-index: 10; /* Ensure it's above other content */
+        width: 100%; /* Full width */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
+        z-index: 10; /* Ensure it's above other content */
     }
 
     .header img {
@@ -91,12 +68,14 @@
         margin-right: 10px; /* Reduce space between logo and title */
     }
 
+
     .header h1 {
         margin: 0; /* Remove default margin */
         font-size: 1.5em; /* Smaller title size */
         color: #006400;
         text-align: left;
     }
+
     .container {
         display: flex;
         justify-content: center;
@@ -116,7 +95,7 @@
         padding: 20px;
         border: 1px solid #808080;
         border-radius: 8px;
-        background-color: #FCFBF0;
+        background-color: #ECFCEC;
         margin-top: 60px;
         color: #006400;
         margin-left: 10px;
@@ -186,7 +165,7 @@
     .result {
         border: 1px solid #808080;
         border-radius: 8px;
-        background-color: #FCFBF0;
+        background-color: #ECFCEC;
         color: #006400;
     }
     .accordion {
@@ -244,7 +223,8 @@
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
     }
     .tile.selected {
-        background-color: #C7F5C7;
+        background-color: #00642F;
+        color: #fff;
     }
     .button-container {
         display: flex;
@@ -398,6 +378,22 @@
         #homeSearch button:hover {
             background-color: #004d00;
         }
+    .suggestions {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background-color: #fff;
+            z-index: 1000;
+            width: 100%;
+    }
+    .suggestions div {
+            padding: 8px;
+            cursor: pointer;
+    }
+    .suggestions div:hover {
+            background-color: #f0f0f0;
+    }
 
 </style>
 </head>
@@ -408,29 +404,27 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="header">
-        <img src="light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
+        <img src="white-back-dark-green-logo.PNG" alt="Habitat Logo">
         <h1>Habitat</h1>
         <div class="menu">
-            <button>Menu</button>
-            <div class="dropdown">
-                <a href="/about-us.html">About Us</a>
-                <a href="/calculators.html">Calculators</a>
-                <a href="/advertise-with-us.html">Advertise with Us</a>
-                <a href="/contact-us.html">Contact Us</a>
-                <a href="/terms-of-service.html">Terms of Service</a>
-            </div>
+            <a href="/calculators.html">Calculators</a>
+            <a href="/news_home.html">News</a>
+            <a href="/help_centre.html">Help Centre</a>
+            <a href="/about-us.html">About Us</a>
+            <a href="/partner-with-us.html">Partner with Us</a>
+            <a href="/contact-us.html">Contact</a>
+            <a href="/terms-of-service.html">Terms of Service</a>
         </div>
     </div>
-    
 
-    <h2>Home Loan Deposit Calculator</h2>
+    <h2>First Home Buyers Calculator</h2>
     
     <div class="container">
         <div class="form-container">
             <form id="inputForm">
                 <label for="house_type">
                     What type of home are you looking to buy? 
-                    <span class="info-icon" onclick="showHelpInfo()">i</span>
+                    <span class="info-icon" onclick="showHelpInfo()&storeInteraction('click_help_house_types')">i</span>
                 </label>
                 <div class="tiles">
                     <div class="tile" id="established" onclick="toggleTile(this,'house_type','established')"> Established Home</div>
@@ -474,7 +468,7 @@
                 <br>
                 <label for="first_home_buyer">
                     Are you a First Home Buyer?
-                    <span class="info-icon" onclick="showHelpInfo()">i</span>
+                    <span class="info-icon" onclick="showHelpInfo()&storeInteraction('click_help_fhb')">i</span>
 
                 </label>
                 <div class="tiles">
@@ -485,7 +479,7 @@
                 <br>
                 <label for="first_home_guarantee">
                     Are you eligible for the First Home Buyer Guarantee?
-                    <span class="info-icon" onclick="showHelpInfo()">i</span>
+                    <span class="info-icon" onclick="showHelpInfo()&storeInteraction('click_help_fhbg')">i</span>
                 </label>
                 <div class="tiles">
                     <div class="tile" id="first_home_guarantee_yes" onclick="toggleTile(this,'first_home_guarantee','first_home_guarantee_yes')">Yes</div>
@@ -495,7 +489,7 @@
                 <br>
                 <label for="guarantor">
                     Do you have a guarantor?
-                    <span class="info-icon" onclick="showHelpInfo()">i</span>
+                    <span class="info-icon" onclick="showHelpInfo()&storeInteraction('click_help_guarantor')">i</span>
                 <div class="tiles">
                     <div class="tile" id="guarantor_yes" onclick="toggleTile(this,'guarantor','guarantor_yes')">Yes</div>
                     <div class="tile" id="guarantor_no" onclick="toggleTile(this,'guarantor','guarantor_no')">No</div>
@@ -510,7 +504,7 @@
                     <option value="0.05">5%</option>
                 </select>
                 <div class="button-container">
-                    <button type="button" onclick="display(findMaxHousePrice().house_price)">Calculate Deposit</button>
+                    <button type="button" onclick="display(findMaxHousePrice().house_price)&storeInteraction('calculate_button')">Calculate Deposit</button>
                 </div>
             </form>
         </div>
@@ -534,19 +528,19 @@
             </div>
             <br>
             <div id="action-buttons" class="hidden">
-                <button id = "find-a-lender" onclick="goToConstructedLink('lender')" class="hidden">Find a Lender</button>
-                <button id = "find-a-home" onclick=showHomeSearch() class="hidden">Find my Home</button>
+                <button id = "find-a-lender" onclick="goToConstructedLink('lender')&storeInteraction('lender_search_click')" class="hidden">Find a Lender</button>
+                <button id = "find-a-home" onclick="showHomeSearch()&storeInteraction('open_home_search_click')" class="hidden">Find my Home</button>
                 <div id="homeSearch" class ="hidden">
                     <form onsubmit="return validatePostcode()">
-                        <label for="postcode">Postcode:</label>
+                        <label style = "font-weight: bold;" for="postcode">Postcode:</label>
                         <input type="text" id="postcode" name="postcode">
-                        <button type = "submit" id="homeSearchButton" onclick="goToConstructedLink('house')">Search</button>
+                        <button type = "submit" id="homeSearchButton" onclick="goToConstructedLink('house')&storeInteraction('home_search_click')">Search</button>
                     </form>
                     
                 </div>
             </div>
             <br>
-            <button class="accordion">Want to see some options to reduce your deposit required?</button>
+            <button class="accordion" onclick="storeInteraction('open_options_to_reduce_deposit')">Want to see some options to reduce your deposit required? </button>
             <div class="panel">
                 <p id="accordionOption1"></p>
                 <p id="accordionOption2"></p>
@@ -556,7 +550,7 @@
                 <p id="accordionOption6"></p>
                 <p id="accordionOption7"></p>
             </div>
-            <button class="accordion">Eligibility Criteria Assumptions</button>
+            <button class="accordion" onclick="storeInteraction('open_eligibility_criteria')">Eligibility Criteria Assumptions</button>
             <div class="panel">
                 <p id="accordionCriteria1"></p>
                 <p id="accordionCriteria2"></p>
@@ -580,8 +574,66 @@
         </div>
       </div>
 
+    <br>  
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>  
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <script>
+
+        
         var globalVar = {};
+
+        function generateUUID() {
+            // UUID v4 (random)
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // Retrieve or create User ID
+        function getUserId() {
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = generateUUID(); // Generate new UUID if not present
+                localStorage.setItem('userId', userId); // Store User ID
+            }
+            return userId;
+        }
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('sessionId');
+            if (!sessionId) {
+                sessionId = generateUUID(); // Generate new UUID if not present
+                sessionStorage.setItem('sessionId', sessionId); // Store Session ID
+            }
+            return sessionId;
+        }
+
+        function storeInteraction(interactionName){
+            var userId = getUserId();
+            var sessionId = getSessionId();
+            data = {
+                userId: userId,
+                sessionId: sessionId,
+                interactionName: interactionName
+            };
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzVyk1DcDbXUa7LZk7ezBSZs0rUiIBBYhWHypri94uShwb5xrLPKXtf94MOHXW80pkd/exec';
+            fetch(scriptURL, {
+            method: 'POST',
+            contentType: 'application/json',
+            body: JSON.stringify(data)
+            })
+            .then(response => console.log('Data saved successfully'))
+            .catch(error => console.log('Data save error'));
+        }
         function validatePostcode() {
             const postcode = document.getElementById('postcode').value;
             const postcodeNumber = parseInt(postcode, 10);
@@ -1337,31 +1389,7 @@
 
             
         }
-        function generateUUID() {
-            // UUID v4 (random)
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        // Retrieve or create User ID
-        function getUserId() {
-            let userId = localStorage.getItem('userId');
-            if (!userId) {
-                userId = generateUUID(); // Generate new UUID if not present
-                localStorage.setItem('userId', userId); // Store User ID
-            }
-            return userId;
-        }
-        function getSessionId() {
-            let sessionId = sessionStorage.getItem('sessionId');
-            if (!sessionId) {
-                sessionId = generateUUID(); // Generate new UUID if not present
-                sessionStorage.setItem('sessionId', sessionId); // Store Session ID
-            }
-            return sessionId;
-        }
+        
 
 
 

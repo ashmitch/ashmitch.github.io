@@ -18,72 +18,48 @@
         body {
             font-family: 'Montserrat', sans-serif;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #ECFCEC;
+            background-color: #FFFFFF; /* Changed to white */
             color: #006400;
         }
 
         .menu {
-            position: relative;
-            display: inline-block;
-            margin-left: auto; /* Pushes the menu button to the right */
-            margin-right: 50px;
+            margin-left: auto;
+            margin-right:40px; /* Pushes the menu to the right */
+            display: flex; /* Display menu items inline */
+            gap: 20px; /* Space between menu items */
         }
 
-        .menu button {
-                background-color: #006400;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                padding: 10px 20px;
-                cursor: pointer;
-                font-family: 'Montserrat', sans-serif;
-                font-size: 16px;
+        .menu a {
+            color: #006400;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            padding: 10px;
         }
 
-        .menu button:hover {
-                background-color: #004d00;
+        .menu a:hover {
+            background-color: #006400;
+            color: #fff; /* Add hover effect */
         }
-        .dropdown {
-                display: none;
-                position: absolute;
-                right: 0;
-                background-color: #FCFBF0;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
-        }
+        
 
-        .dropdown a {
-                color: #006400;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-                font-family: 'Montserrat', sans-serif;
-        }
-
-        .dropdown a:hover {
-                background-color: #f1f1f1;
-        }
-
-        .menu:hover .dropdown {
-                display: block;
-        }
+        
         .header {
-                position: fixed; /* Fix the header to the top */
-                top: 0; /* Align to the top */
-                left: 0; /* Align to the left */
-                display: flex;
-                align-items: center;
-                padding: 10px 20px; /* Add padding around the header */
-                background-color: #ECFCEC;
+            position: fixed; /* Fix the header to the top */
+            top: 0; /* Align to the top */
+            left: 0; /* Align to the left */
+            display: flex;
+            align-items: center;
+            padding: 10px 20px; /* Add padding around the header */
+            background-color: #FFFFFF; /* Changed to white */
 
-                width: 100%; /* Full width */
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
-                z-index: 10; /* Ensure it's above other content */
+            width: 100%; /* Full width */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
+            z-index: 10; /* Ensure it's above other content */
         }
 
         .header img {
@@ -91,6 +67,7 @@
             height: auto;
             margin-right: 10px; /* Reduce space between logo and title */
         }
+
 
         .header h1 {
             margin: 0; /* Remove default margin */
@@ -183,7 +160,6 @@
     </style>
 </head>
 
-</script>
 <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
@@ -193,6 +169,19 @@
     <div class="header">
         <img src="light-green-back-dark-green-logo.PNG" alt="Habitat Logo">
         <h1>Habitat</h1>
+    </div>
+    <div class="header">
+        <img src="white-back-dark-green-logo.PNG" alt="Habitat Logo">
+        <h1>Habitat</h1>
+        <div class="menu">
+            <a href="/calculators.html">Calculators</a>
+            <a href="/news_home.html">News</a>
+            <a href="/help_centre.html">Help Centre</a>
+            <a href="/about-us.html">About Us</a>
+            <a href="/partner-with-us.html">Partner with Us</a>
+            <a href="/contact-us.html">Contact</a>
+            <a href="/terms-of-service.html">Terms of Service</a>
+        </div>
     </div>
 
     <div class="main-content">
@@ -205,12 +194,39 @@
 
         <div class="text-right">
             <p>Try our First Home Buyers Calculator</p>
-            <div class="button-container">
+            <div class="button-container" >
                 <a href="fho_calculator.html">
-                    <button>Get Started</button>
+                    <button id="get-started-button">Get Started</button>
                 </a>
             </div>
         </div>
     </div>
+
+    <script>
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function getUserId() {
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = generateUUID();
+                localStorage.setItem('userId', userId);
+            }
+            return userId;
+        }
+
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('sessionId');
+            if (!sessionId) {
+                sessionId = generateUUID();
+                sessionStorage.setItem('sessionId', sessionId);
+            }
+            return sessionId;
+        }
+    </script>
 </body>
 </html>
