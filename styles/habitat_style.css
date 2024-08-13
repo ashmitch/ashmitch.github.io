@@ -1,0 +1,477 @@
+:root {
+    --habitat-green: #00642F;
+    --habitat-blue: #4d9de0;
+    --habitat-mint: #C9Eddc;
+    --habitat-black: #141204;
+    --habitat-apricot: #ffcab1;
+    --habitat-white: #ffffff;
+    --habitat-grey: #a1a1a1;
+}
+
+
+body {
+    font-family: 'Lexend', sans-serif;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--habitat-white);
+    color: var(--habitat-green);
+}
+
+.menu {
+    margin-left: auto;
+    margin-right:40px; /* Pushes the menu to the right */
+    display: flex; /* Display menu items inline */
+    gap: 20px; /* Space between menu items */
+}
+
+.menu a {
+    color: var(--habitat-green);
+    text-decoration: none;
+    font-family: 'Lexend', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.menu a:hover {
+    background-color: var(--habitat-green);
+    color: var(--habitat-white); /* Add hover effect */
+}
+
+
+
+.header {
+    position: fixed; /* Fix the header to the top */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Add padding around the header */
+    background-color: var(--habitat-white); /* Changed to white */
+
+    width: 100%; /* Full width */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for subtle depth */
+    z-index: 10; /* Ensure it's above other content */
+}
+
+.header img {
+    max-width: 40px; /* Adjust the logo size */
+    height: auto;
+    margin-right: 10px; /* Reduce space between logo and title */
+}
+
+
+.header h1 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.5em; /* Smaller title size */
+    color: var(--habitat-green);
+    text-align: left;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%; /* Take full width */
+    max-width: 1800px; /* Limit maximum width */
+    margin-top: 20px;
+}
+h2 {
+    font-size: 36px; /* Increase font size of h2 */
+    color: var(--habitat-green);
+    margin-top: 100px; /* Move h2 down */
+}
+
+.form-container {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 20px;
+    border: 1px solid var(--habitat-black);
+    border-radius: 8px;
+    background-color: var(--habitat-mint);
+    margin-top: 60px;
+    color: var(--habitat-green);
+    margin-left: 10px;
+    margin-right: 10px;
+}
+select#state,
+select#deposit_percentage {
+    width: 40%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+input#current_savings {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+input#house_price {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+.input-field {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+.result-container {
+    flex-basis: 100%;
+    margin-top: 20px;
+    max-width: 1200px;
+    padding: 20px;
+    color: var(--habitat-green);
+}
+
+/* Media query for smaller screens (like phones) */
+@media only screen and (max-width: 950px) {
+    .container {
+        width: 80%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-container {
+        margin-right: 0;
+    }
+    .tiles {
+        flex-direction: column; /* Stack tiles vertically on small screens */
+        align-items: center; /* Center align the tiles */
+    }
+    .tile {
+        width: calc(100% - 20px); /* Full width minus margin for smaller screens */
+        margin: 10px 0; /* Vertical margin for stacked tiles */
+    }
+    h2 {
+    font-size:24px; /* Increase font size of h2 */
+    color: var(--habitat-green);;
+    margin-top: 60px; /* Move h2 down */
+}
+}
+.result {
+    border: 1px solid var(--habitat-black);
+    border-radius: 8px;
+    background-color: var(--habitat-mint);
+    color: var(--habitat-green);
+}
+.accordion {
+    background-color: var(--habitat-white);
+    color: var(--habitat-green);;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--habitat-grey);
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+.accordion.active,
+.accordion:hover {
+    background-color: var(--habitat-mint);
+}
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: var(--habitat-white);
+    overflow: hidden;
+    text-align: left;
+}
+.panel.show {
+    display: block;
+}
+form {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--habitat-black);
+}
+.tiles {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Allow tiles to wrap if there's not enough space */
+}
+.tile {
+    flex: 1; /* Each tile will take up equal space */
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid var(--habitat-grey);
+    border-radius: 8px;
+    background-color: var(--habitat-white);;
+    transition: background-color 1s ease;
+    margin: 5px; /* Space between tiles */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+.tile.selected {
+    background-color: var(--habitat-green);
+    color: var(--habitat-white);;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--habitat-green);;
+    color: var(--habitat-white);;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.coming-soon-button {
+    padding: 10px 20px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--habitat-grey);
+    color: var(--habitat-white);;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: var(--habitat-mint);
+    color: var(--habitat-green);;
+}
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+.result p {
+    margin: 10px 0;
+    color: var(--habitat-black);
+}
+.result.bold {
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--habitat-green);
+}
+.info-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        font-size: 14px;
+        background-color: var(--habitat-white); /* Background color */
+        color: var(--habitat-green);; /* Text color */
+        border-radius: 50%; /* Rounded shape */
+        cursor: pointer; /* Show pointer cursor on hover */
+        margin-left: 5px; /* Adjust spacing */
+    }
+    /* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--habitat-white);
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid var(--habitat-grey);
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Responsive width */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.close {
+    color: var(--habitat-white);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--habitat-black);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.hidden {
+        display: none;
+    }
+
+#find-a-lender{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        text-align: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+}
+#find-a-home{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        text-align: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+
+
+#homeSearch {
+        display: none;
+        margin-top: 10px;
+        border: 1px solid var(--habitat-grey);
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+#homeSearch label,
+#homeSearch input,
+#homeSearch select {
+        display: inline-block;
+        margin: 5px;
+        font-size: 16px;
+}
+
+#homeSearch input,
+#homeSearch select {
+        margin-right: 10px;
+}
+
+#homeSearch button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        background-color: var(--habitat-green);;
+        color: var(--habitat-white);;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Lexend', sans-serif;
+        font-size: 16px;
+}
+
+#homeSearch button:hover {
+        background-color: var(--habitat-green);
+}
+.sidebar {
+    height: 100%;
+    width: 250px; /* Width of the sidebar */
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially off-screen */
+    background-color: var(--habitat-white);;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease; /* Animation for sliding effect */
+    padding: 20px;
+    z-index: 100; /* Ensure it's above other content */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px;
+    color: var(--habitat-green);;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid var(--habitat-grey);
+}
+
+.sidebar a:hover {
+    background-color: var(--habitat-green);
+    color: var(--habitat-white);
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 40px;
+    cursor: pointer;
+    color: var(--habitat-green);;
+}
+
+.open-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--habitat-green);;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.sidebar.open {
+    right: 0; /* Slide in */
+}
+.menu-options{
+    margin-top: 60px;
+}
+
+.section {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid var(--habitat-grey);
+    border-radius: 8px;
+    background-color: var(--habitat-mint);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section h3 {
+    font-size: 24px;
+    color: var(--habitat-green);
+}
+
+.section p {
+    font-size: 16px;
+    color: var(--habitat-grey);
+}
+
+.section.bold p {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--habitat-green);
+}
+.body-text{
+    margin-left: 150px;
+    margin-right:150px;
+    color: var(--habitat-black);
+}
+
+.page-symbol-icon {
+    width: 120px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin: 5px 0; /* Space around the icon */
+    color: var(--habitat-green);;
+}
