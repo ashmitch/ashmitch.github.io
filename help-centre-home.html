@@ -1,92 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-52ZW7XWL');
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5WZ2JZNVE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-J5WZ2JZNVE');
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
-    <title>Habitat - Home Loan Deposit Calculator - Help Pages</title>
     <link rel="stylesheet" href="styles\habitat_style.css"> 
+    <script src="scripts\core-functions.js" defer></script>
+    <title>Habitat - Help Centre</title>
+    <style>
+        .content {
+            display: flex;
+            justify-content: space-between; /* Ensure equal spacing between columns */
+            margin: 20px auto;
+            margin-top:50px;
+            max-width: 1200px; /* Optional: set a max width to control layout */
+        }
+        .content .left-column {
+            width: 40%;
+            padding: 10px;
+            justify-content: left;
+        }
+        .content .right-column {
+            width: 50%;
+            height:60%;
+            padding: 10px;
+            justify-content: center;
+        }
+        .content .banner {
+            width: 100%;
+            height: auto;
+            margin-top:50px;
+        }
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .content .left-column, .content .right-column {
+                width: 100%;
+            }
+        }
+        .separator {
+            border-top: 10px solid #006400; /* Light gray color */
+            margin: 10px; /* Margin to space out the separator from content */
+        }
 
-</head>
 
-</script>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52ZW7XWL" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <div class="header">
-        <img src="images\logos\vector_art_logo.svg" alt="Habitat Logo">
-        <h1>Habitat</h1>
-        <div class="menu">
-            <span class="open-btn" onclick="toggleSidebar()">☰</span> <!-- Menu button -->
-            <div class="sidebar" id="sidebar">
-                <span class="close-btn" onclick="toggleSidebar()">×</span> <!-- Close button -->
-                <div class="menu-options">
-                    <a href="/calculators.html">Calculators</a>
-                    <a href="/news_home.html">News</a>
-                    <a href="/help_centre.html">Help Centre</a>
-                    <a href="/about-us.html">About Us</a>
-                    <a href="/partner-with-us.html">Partner with Us</a>
-                    <a href="/contact-us.html">Contact</a>
-                    <a href="/terms-of-service.html">Terms of Service</a>
+    </style>
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52ZW7XWL" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        </div>
+        <div class="header">
+            <a href="index.html" >
+                <img src="images\logos\vector_art_logo.svg" alt="Habitat Logo">
+            </a>
+            <a href="index.html" style="text-decoration: none;">
+                <h1>Habitat</h1>
+            </a>
+            <div class="menu">
+                <span class="open-btn" onclick="toggleSidebar()">☰</span> <!-- Menu button -->
+                <div class="sidebar" id="sidebar">
+                    <span class="close-btn" onclick="toggleSidebar()">×</span> <!-- Close button -->
+                    <div class="menu-options">
+                        <a href="calculators.html">Calculators</a>
+                        <a href="news_home.html">News</a>
+                        <a href="help-centre-home.html">Help Centre</a>
+                        <a href="about-us.html">About Us</a>
+                        <a href="partner-with-us.html">Partner with Us</a>
+                        <a href="contact-us.html">Contact</a>
+                        <a href="terms-of-use.html">Terms of Use</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <h2>Help Centre</h2>
-
+        <div class="content">
+            <div class="left-column">
+                <h2>First Home Owner Grants & Concessions</h2>
+                <p>Find out the ins & outs of all the First Home Owner Grants & Concessions available to you, as well as the criteria for each one. </p>
+                <a href="help-centre-fho.html">
+                    <button  class="button">Go</button>
+                </a>
+            </div>
+            <div class="right-column">
+                <img src="images\house-driveway.jpg" alt="Banner Image" class="banner">
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="content">
+            <div class="left-column">
+                <h2>Mortgage Terminology</h2>
+                <p>There's a lot of jargon around mortgages & lending. Let us help you cut through the noise</p>
+                <a>
+                    <button  class="coming-soon-button">Coming Soon</button>
+                </a>
+            </div>
+            <div class="right-column">
+                <img src="images\calculator.jpg" alt="Banner Image" class="banner">
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="content">
+            <div class="left-column">
+                <h2>Home Buying Fees</h2>
+                <p>Every Home Buyer's worst nightmare is having an unexpected fee pop up at the last minute, learn about all the fees involved in the Home Buying Process </p>
+                <a>
+                    <button  class="coming-soon-button">Coming Soon</button>
+                </a>
+            </div>
+            <div class="right-column">
+                <img src="images\older-house-blue-front.jpg" alt="Banner Image" class="banner">
+            </div>
+        </div>
+    
     
 
-    <div class="section">
-        <h3>What are the types of homes?</h3>
-        <p>
-            <strong>Established Home</strong> - a house which is already built & has been lived in before by someone else.<br><br>
-            <strong>New Home</strong> - a house which has just been built & has never been lived in before (e.g an Apartment or Townhouse from a new development or House & Land Package)<br><br>
-            <strong>Land to Build On</strong> - land which you are buying with intentions to build a house on.<br><br>
-
-        </p>
-    </div>
-
-    <div class="section">
-        <h3>Are you a First Home Buyer?</h3>
-        <p>
-            You are a first home buyer if you have not owned and/or held any interest in a residential property in Australia. <br><br>
-            If your partner/spouse owns or once owned a residential property in Australia, then you will not be able to access the grants & concessions available to First Home Buyers either.
-        </p>
-    </div>
-
-    <div class="section">
-        <h3>What is the First Home Buyer Guarantee?</h3>
-        <p>
-            The First Home Buyer Guarantee allows eligible home buyers to purchase a home with a deposit of as little as 5% <br><br>
-            The guarantee is not a cash payment, but instead the government with act as a guarantor for your loan. <br><br>
-            This scheme can be used for established homes, house & land packages, newly built homes and land with a separate contract to build a home. <br>
-        </p>
-    </div>
-
-    <div class="section">
-        <h3>What is a Guarantor?</h3>
-        <p>
-            A guarantor is someone (usually a family member) who will be guaranteeing the payments of the home loan.
-            This means that if you fail to pay the debt, it then falls to that family member to pay it instead. <br><br>
-            Most lenders require a guarantor to be an immediate family member & will not accept a friend or other form of relation to be a guarantor.
-
-        </p>
-    </div>
-
-</body>
+    </body>
 </html>
+    

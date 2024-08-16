@@ -152,7 +152,7 @@ input#house_price {
     }
     h2 {
     font-size:24px; /* Increase font size of h2 */
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
     margin-top: 60px; /* Move h2 down */
 }
 }
@@ -164,7 +164,7 @@ input#house_price {
 }
 .accordion {
     background-color: var(--habitat-white);
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -211,14 +211,14 @@ label {
     padding: 10px;
     border: 1px solid var(--habitat-grey);
     border-radius: 8px;
-    background-color: var(--habitat-white);;
+    background-color: var(--habitat-white);
     transition: background-color 1s ease;
     margin: 5px; /* Space between tiles */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 .tile.selected {
     background-color: var(--habitat-green);
-    color: var(--habitat-white);;
+    color: var(--habitat-white);
 }
 .button-container {
     display: flex;
@@ -230,8 +230,8 @@ button {
     font-family: 'Lexend', sans-serif;
     font-size: 16px;
     cursor: pointer;
-    background-color: var(--habitat-green);;
-    color: var(--habitat-white);;
+    background-color: var(--habitat-green);
+    color: var(--habitat-white);
     border: none;
     border-radius: 4px;
     transition: background-color 0.3s ease;
@@ -242,14 +242,14 @@ button {
     font-size: 16px;
     cursor: pointer;
     background-color: var(--habitat-grey);
-    color: var(--habitat-white);;
+    color: var(--habitat-white);
     border: none;
     border-radius: 4px;
 }
 
 button:hover {
     background-color: var(--habitat-mint);
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
 }
 .result {
     margin-top: 20px;
@@ -273,7 +273,7 @@ button:hover {
         text-align: center;
         font-size: 14px;
         background-color: var(--habitat-white); /* Background color */
-        color: var(--habitat-green);; /* Text color */
+        color: var(--habitat-green); /* Text color */
         border-radius: 50%; /* Rounded shape */
         cursor: pointer; /* Show pointer cursor on hover */
         margin-left: 5px; /* Adjust spacing */
@@ -371,8 +371,8 @@ button:hover {
 #homeSearch button {
         margin-left: 10px;
         padding: 10px 20px;
-        background-color: var(--habitat-green);;
-        color: var(--habitat-white);;
+        background-color: var(--habitat-green);
+        color: var(--habitat-white);
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -389,7 +389,7 @@ button:hover {
     position: fixed;
     top: 0;
     right: -300px; /* Initially off-screen */
-    background-color: var(--habitat-white);;
+    background-color: var(--habitat-white);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transition: right 0.3s ease; /* Animation for sliding effect */
     padding: 20px;
@@ -402,7 +402,7 @@ button:hover {
 .sidebar a {
     display: block;
     padding: 10px;
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
     text-decoration: none;
     font-size: 16px;
     border-bottom: 1px solid var(--habitat-grey);
@@ -419,13 +419,13 @@ button:hover {
     left: 20px;
     font-size: 40px;
     cursor: pointer;
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
 }
 
 .open-btn {
     font-size: 24px;
     cursor: pointer;
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
     margin-left: auto;
     margin-right: 20px;
 }
@@ -455,7 +455,7 @@ button:hover {
 
 .section p {
     font-size: 16px;
-    color: var(--habitat-grey);
+    color: var(--habitat-black);
 }
 
 .section.bold p {
@@ -464,14 +464,15 @@ button:hover {
     color: var(--habitat-green);
 }
 .body-text{
-    margin-left: 150px;
-    margin-right:150px;
+    width: 60%;
+    font-size: 20px;
     color: var(--habitat-black);
+    text-align: center;
 }
 
 .page-symbol-icon {
     width: 120px; /* Adjust width as needed */
     height: auto; /* Maintain aspect ratio */
     margin: 5px 0; /* Space around the icon */
-    color: var(--habitat-green);;
+    color: var(--habitat-green);
 }
